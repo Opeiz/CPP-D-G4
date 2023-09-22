@@ -1,7 +1,8 @@
 # CPP-D-G4
-## Repository for the Groupe 4 of Advanced C++ UE-D
 
-## *Cheat Sheet*
+Repository for group 4 of Advanced C++ Programming (UE-D)
+
+## Cheat Sheet
 
 - Compile:
     - g++ -c XX.cpp -Wall
@@ -11,3 +12,4 @@
 
 - Execute:
     - ./exe
+
