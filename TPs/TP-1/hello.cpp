@@ -4,7 +4,17 @@ using namespace std;
 
 int main(int argc, char* argv[]){
 
-    cout << "Guille Pelao" << endl;
+    // 1
+    cout << "Guille == Amigo" << endl;
+    
+    // 4 Bonus
+    int i = 1;
+    for (i ; i < argc; i++){
+        cout << "Argument: " << i << " => "<<argv[i] << endl;
+    }
+    
+    cout << "This program has " << i-1 << " arguments" << endl;
+
     return 0;
 }
 
