@@ -1,11 +1,11 @@
 #include <iostream>
 #include <math.h>
 
-using namespace std;
+int main() {
+    double x = 3.14; 
+    double result = cos(x);
 
-int main(int argc, char* argv[]){
-
-    
+    std::cout << "Cosine of " << x << " is: " << result << std::endl;
 
     return 0;
 }
