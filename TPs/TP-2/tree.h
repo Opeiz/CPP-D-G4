@@ -1,4 +1,4 @@
-// 
+// Deficion de la clase 
 #ifndef __TREE
 #define __TREE
 
