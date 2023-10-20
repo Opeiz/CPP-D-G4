@@ -4,21 +4,19 @@
 class Pizza {
     public:
         float price;
-        int size;
+        int diameter;
 
-        void eat_pizza();
+        void eatPizza();
 
         Pizza();
-        ~Pizza()
 }
 
-class PizzaCalzone : Pizza {
+class PizzaCalezone : Pizza {
     char* meat_type;
     char* cheese_type;
     char* dough_type;
 
-    PizzaCalzone();
-    ~PizzaCalzone();
+    PizzaCalezone();
 }
 
 class PizzaVegetarian : Pizza {
@@ -26,14 +24,12 @@ class PizzaVegetarian : Pizza {
     char* dough_type;
 
     PizzaVegetarian();
-    ~PizzaVegetarian();    
 }
 
 class PizzaVegan : Pizza {
     char* dough_type;
 
     PizzaVegan();
-    ~PizzaVegan();
 }
 
 #endif
