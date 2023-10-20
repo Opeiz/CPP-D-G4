@@ -1,6 +1,8 @@
 #ifndef __PIZZA
 #define __PIZZA
 
+#include <string>
+
 class Pizza {
     public:
         float price;
@@ -9,27 +11,31 @@ class Pizza {
         void eatPizza();
 
         Pizza();
-}
+        Pizza(float price, int diameter);
+};
 
-class PizzaCalezone : Pizza {
-    char* meat_type;
-    char* cheese_type;
-    char* dough_type;
+class PizzaCalezone : public Pizza {
+    std::string meat_type;
+    std::string cheese_type;
+    std::string dough_type;
+    
+    public:
+        PizzaCalezone(float price, int diameter);
+};
 
-    PizzaCalezone();
-}
+class PizzaVegetarian : public Pizza {
+    std::string cheese_type;
+    std::string dough_type;
 
-class PizzaVegetarian : Pizza {
-    char* cheese_type;
-    char* dough_type;
+    public:
+        PizzaVegetarian(float price, int diameter);
+};
 
-    PizzaVegetarian();
-}
+class PizzaVegan : public Pizza {
+    std::string dough_type;
 
-class PizzaVegan : Pizza {
-    char* dough_type;
-
-    PizzaVegan();
-}
+    public:
+        PizzaVegan(float price, int diameter);
+};
 
 #endif

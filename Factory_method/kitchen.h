@@ -6,18 +6,21 @@
 class PizzaKitchen{
     public:
         virtual Pizza* cookPizza()=0;
-}
+};
 
-class PizzaCalezoneKitchen : PizzaKitchen {
-    PizzaCalezone* cookPizza();
-}
+class PizzaCalezoneKitchen : public PizzaKitchen {
+    public:
+        Pizza* cookPizza();
+};
 
-class PizzaVegetarianKitchen : PizzaKitchen {
-    PizzaVegetarian* cookPizza();
-}
+class PizzaVegetarianKitchen : public PizzaKitchen {
+    public:
+        Pizza* cookPizza();
+};
 
-class PizzaVeganKitchen : PizzaKitchen {
-    PizzaVegan* cookPizza();
-}
+class PizzaVeganKitchen : public PizzaKitchen {
+    public:
+        Pizza* cookPizza();
+};
 
 #endif
