@@ -12,6 +12,10 @@ Pizza::Pizza(float price, int diameter): diameter(diameter), price(price){
     std::cout << "Cooking a pizza at address: " << this << std::endl;
 }
 
+Pizza::~Pizza(){
+    std::cout << "Destroying generic pizza at address: " << this << std::endl;
+}
+
 void Pizza::eatPizza(){
     std::cout << "Eating the pizza at address: " << this << std::endl;
     std::cout << "Yummy!" << std::endl;
@@ -24,6 +28,10 @@ PizzaCalezone::PizzaCalezone(float price, int diameter) :
         std::cout << "Calezone coming up!" << std::endl;
 }
 
+PizzaCalezone::~PizzaCalezone(){
+    std::cout << "Destroying Calezone at address: " << this << std::endl;
+}
+
 /* Vegetarian class */
 
 PizzaVegetarian::PizzaVegetarian(float price, int diameter) :
@@ -31,9 +39,17 @@ PizzaVegetarian::PizzaVegetarian(float price, int diameter) :
         std::cout << "Vegetarian coming up!" << std::endl;
     }
 
+PizzaVegetarian::~PizzaVegetarian(){
+    std::cout << "Destroying Vegetarian at address: " << this << std::endl;
+}
+
 /* Vegan class */
 
 PizzaVegan::PizzaVegan(float price, int diameter) :
     Pizza::Pizza(price, diameter), dough_type("classic"){
         std::cout << "Vegan coming up!" << std::endl;
     }
+
+PizzaVegan::~PizzaVegan(){
+    std::cout << "Destroying Vegan at address: " << this << std::endl;
+}

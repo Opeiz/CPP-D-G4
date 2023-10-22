@@ -4,14 +4,15 @@
 #include <string>
 
 class Pizza {
-    public:
+    protected:
         float price;
         int diameter;
-
+    public:
         void eatPizza();
 
         Pizza();
         Pizza(float price, int diameter);
+        virtual ~Pizza();
 };
 
 class PizzaCalezone : public Pizza {
@@ -21,6 +22,7 @@ class PizzaCalezone : public Pizza {
     
     public:
         PizzaCalezone(float price, int diameter);
+        ~PizzaCalezone();
 };
 
 class PizzaVegetarian : public Pizza {
@@ -29,6 +31,7 @@ class PizzaVegetarian : public Pizza {
 
     public:
         PizzaVegetarian(float price, int diameter);
+        ~PizzaVegetarian();
 };
 
 class PizzaVegan : public Pizza {
@@ -36,6 +39,7 @@ class PizzaVegan : public Pizza {
 
     public:
         PizzaVegan(float price, int diameter);
+        ~PizzaVegan();
 };
 
 #endif
