@@ -5,18 +5,14 @@
 
 using namespace std;
 
-
 class Comportement{
-   private :
-      void bouge( int xLim, int yLim );
 
-   public :                                           // Forme canonique :
-      Comportement( void );                  
-      ~Comportement( void );                              // Destructeur
-                                                      // Operateur d'affectation binaire par defaut
-
+    public :                                                    
+        virtual double get_orientation() = 0 ; 
+        virtual double get_vitesse() = 0;
+        virtual T * get_color() = 0;      
+        virtual ~Comportement() {};                                      
 
 };
 
-
-#endif
+#endif 

@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class Milieu : public UImg{
       static const T          white[];
 
       int                     width, height;
-      std::vector<Bestiole>   listeBestioles;
+      std::list<Bestiole>   listeBestioles;
 
    public :
       Milieu( int _width, int _height );

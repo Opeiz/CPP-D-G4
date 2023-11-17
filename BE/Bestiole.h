@@ -16,7 +16,7 @@ class Bestiole{
       static const double     MAX_VITESSE;
       static const double     LIMITE_VUE;
 
-      static int              next;
+      static int              next; 
 
    private :
       int               identite;
@@ -26,6 +26,8 @@ class Bestiole{
       double            vitesse;
 
       T               * couleur;
+      int               maxAge;
+      int               age;
 
    private :
       void bouge( int xLim, int yLim );
@@ -41,6 +43,9 @@ class Bestiole{
       bool jeTeVois( const Bestiole & b ) const;
 
       void initCoords( int xLim, int yLim );
+
+      void incAge();
+      bool isTooOld();
 
       friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
 
