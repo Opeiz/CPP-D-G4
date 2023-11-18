@@ -2,10 +2,6 @@
 #include "Milieu.h"
 #include "Bestiole.h"
 
-#include <iostream>
-
-using namespace std;
-
 
 int main()
 {

@@ -1,7 +1,9 @@
-#include "Milieu.h"
-#include "ComportementGregaire.h"
 #include <cstdlib>
-#include <ctime>
+#include <list>
+
+#include "Bestiole.h"
+#include "UImg.h"
+#include "ComportementKamikaze.h"
 
 
 const T    white[] =    { (T)255,   (T)255, (T)255 };
@@ -13,18 +15,18 @@ const T    rose[] =     { (T)255,   (T)193, (T)203 };
 const T    purple[] =   { (T)128,   (T)0,   (T)128 };
 const T    orange[] =   { (T)255,   (T)165, (T)0 };
 
-ComportementGregaire::ComportementGregaire(){}
 
 
-double ComportementGraigaire::get_orientation(list<Bestiole> Perceived_bsts){
+double ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
+    // TODO
+    return 0;
+};
+
+double ComportementKamikaze::get_vitesse(std::list<Bestiole> perceivedBsts){
+    // TODO
     return 0;
 }
 
-double ComportementGraigaire::get_vitesse(list<Bestiole> Perceived_bsts){
-    return 0;
+void ComportementKamikaze::set_color(){
+    // TODO
 }
-
-T* ComportementGraigaire::get_color(list<Bestiole> Perceived_bsts){
-    return black[];
-}
-

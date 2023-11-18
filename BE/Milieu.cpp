@@ -1,8 +1,8 @@
-#include "Milieu.h"
-
 #include <cstdlib>
 #include <ctime>
 #include <list>
+
+#include "Milieu.h"
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 

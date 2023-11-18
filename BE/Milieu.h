@@ -1,12 +1,11 @@
 #ifndef _MILIEU_H_
 #define _MILIEU_H_
 
+#include <iostream>
+#include <list>
+
 #include "UImg.h"
 #include "Bestiole.h"
-
-#include <iostream>
-#include <vector>
-#include <list>
 
 using namespace std;
 

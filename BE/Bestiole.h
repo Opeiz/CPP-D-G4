@@ -2,10 +2,7 @@
 #define _BESTIOLES_H_
 
 #include "UImg.h"
-
-#include <iostream>
-
-using namespace std;
+#include "comportements/Comportement.h"
 
 class Milieu;
 
