@@ -32,6 +32,14 @@ Bestiole::Bestiole( void ){
    couleur[ 1 ] = 0;
    couleur[ 2 ] = 0;
 
+   // Probability of being MultiPerso
+   int probMulti = std::rand() % 100; // Number between 0 and 99
+   
+   if (probMulti > 85){
+      printf("Es esquizofrenico!");
+   }
+
+
 }
 
 

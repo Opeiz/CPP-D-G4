@@ -27,6 +27,7 @@ class Bestiole{
       int               maxAge;
       int               age;
 
+   public:
       bool              isMultiplePerso;
 
    private :
