@@ -12,6 +12,7 @@ class Bestiole{
       static const double     AFF_SIZE;
       static const double     MAX_VITESSE;
       static const double     LIMITE_VUE;
+      static const double     COLLISION_DEATH_RATE;
 
       static int              next; 
 
@@ -47,7 +48,9 @@ class Bestiole{
       friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
       friend bool operator!=( const Bestiole & b1, const Bestiole & b2 );
 
+      // Collision-related functions
       double distanceToBst(const Bestiole &b);
+      bool diedInCollision();
 };
 
 

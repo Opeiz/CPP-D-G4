@@ -6,6 +6,7 @@
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
+const double      Bestiole::COLLISION_DEATH_RATE = 0.3; // Prob of dying in collision
 
 int               Bestiole::next = 0;
 
@@ -149,4 +150,22 @@ bool Bestiole::isTooOld(){
 double Bestiole::distanceToBst(const Bestiole &b){
    double dist = sqrt(pow(this->x - b.x, 2) + pow(this->y - b.y, 2));
    return dist;
+}
+
+bool Bestiole::diedInCollision(){
+   /* Called when the bestiole collides with another. It should either kill it or
+   make it go in the opposite direction. It should also consider if the bestiole
+   has a carapace equiped or not. */
+
+   // TODO: Consider carapace
+
+   if (((rand() % 1000) / 1000) <= COLLISION_DEATH_RATE){
+      // Death
+      return True;
+   }
+   else {
+      // Survival
+      // TODO
+      return False;
+   }
 }
