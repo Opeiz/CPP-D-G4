@@ -62,10 +62,19 @@ void Milieu::step( void ){
    // printf("Number of bestioles after age check: %d", listeBestioles.size());
 
    // Iteration over bestioles who didn't die of old age to check collisions
+   double collisionDist = 8;
+
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       // Step 3 and 4
       // TODO
       // Compute distance matrix between all bestioles
+
+      for (std::list<Bestiole>::iterator it2 = listeBestioles.begin(); it2 != listeBestioles.end(); ++it2){
+         // Iterate over all bestioles to see if distance is too small
+         if ((*it != *it2) && (it->distanceToBst(*it2) <= collisionDist)){
+            printf("A collision just happened!\n");
+         }
+      }
    }
 
    // Bestiole Birth

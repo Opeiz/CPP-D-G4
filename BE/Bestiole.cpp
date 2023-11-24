@@ -11,7 +11,7 @@ int               Bestiole::next = 0;
 
 Bestiole::Bestiole( void ){
    age = 0;
-   maxAge = rand() % 551 + 150; // range btw 50-400
+   maxAge = rand() % 500 + 150; // range btw 50-400
    
    identite = ++next;
 
@@ -123,6 +123,12 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 ){
 
 }
 
+bool operator!=( const Bestiole & b1, const Bestiole & b2 ){
+
+   return ( b1.identite != b2.identite );
+
+}
+
 bool Bestiole::jeTeVois( const Bestiole & b ) const{
 
    double         dist;
@@ -138,4 +144,9 @@ void Bestiole::incAge(){
 
 bool Bestiole::isTooOld(){
    return ((this->age) >= (this->maxAge));
+}
+
+double Bestiole::distanceToBst(const Bestiole &b){
+   double dist = sqrt(pow(this->x - b.x, 2) + pow(this->y - b.y, 2));
+   return dist;
 }

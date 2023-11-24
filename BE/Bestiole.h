@@ -45,7 +45,9 @@ class Bestiole{
       bool isTooOld();
 
       friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
+      friend bool operator!=( const Bestiole & b1, const Bestiole & b2 );
 
+      double distanceToBst(const Bestiole &b);
 };
 
 
