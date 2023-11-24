@@ -14,3 +14,8 @@ Oreilles::Oreilles(float delta, float gamma){
     gamma_o = (gamma_o < GAMMA_O_MAX) ? gamma_o : GAMMA_O_MAX;
 }
 
+void Oreilles::detecter(std::list<Bestiole*> perceivedBsts, Bestiole bes, list<Bestiole> listeBestioles)
+{
+    
+}
+

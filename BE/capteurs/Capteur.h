@@ -11,7 +11,7 @@
 
 class Capteur{
     public:
-        virtual void detecter(std::list<Bestiole*> perceivedBsts)=0;
+        virtual void detecter(std::list<Bestiole*> perceivedBsts, Bestiole bes, list<Bestiole> listeBestioles)=0;
 };
 
 #endif

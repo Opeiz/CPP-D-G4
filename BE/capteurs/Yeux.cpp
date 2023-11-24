@@ -18,3 +18,8 @@ Yeux::Yeux(float alpha, float delta, float gamma){
     gamma_y = (gamma_y < GAMMA_Y_MAX) ? gamma_y : GAMMA_Y_MAX;
 
 }
+
+void Yeux::detecter(std::list<Bestiole*> perceivedBsts){
+    
+
+}

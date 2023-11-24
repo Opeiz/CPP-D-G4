@@ -17,7 +17,7 @@ class Oreilles : public Capteur{
     public:
         Oreilles();
         Oreilles(float delta, float gamma);
-        void detecter(std::list<Bestiole*> perceivedBsts);
+        void detecter(std::list<Bestiole*> perceivedBsts, Bestiole bes, list<Bestiole> listeBestioles);
 };
 
 #endif

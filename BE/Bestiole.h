@@ -27,6 +27,8 @@ class Bestiole{
       int               maxAge;
       int               age;
 
+      bool              isMultiplePerso;
+
    private :
       void bouge( int xLim, int yLim );
 

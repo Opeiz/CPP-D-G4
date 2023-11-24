@@ -59,7 +59,6 @@ void Milieu::step( void ){
       }
    }
 
-   // printf("Number of bestioles after age check: %d", listeBestioles.size());
 
    // Iteration over bestioles who didn't die of old age to check collisions
    double collisionDist = 8;
@@ -105,5 +104,12 @@ int Milieu::nbVoisins( const Bestiole & b ){
          ++nb;
 
    return nb;
+
+}
+
+void Milieu::addMember( const Bestiole & b){
+   
+   listeBestioles.push_back(b); 
+   listeBestioles.back().initCoords(width, height); 
 
 }

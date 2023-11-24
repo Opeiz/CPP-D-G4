@@ -16,13 +16,17 @@ const T    red[] =      { (T)255,   (T)0,   (T)0 };
 
 double ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
     //iterate on bestiole to know the nearest 
+    Bestiole nearest=perceivedBsts[0];
     for (nbbestiole , nbbestiole <len(perceivedBsts), nbbestiole++){
-        if ((perceivedBsts[nbbestiole].x)<min){
-            
+        
+        distance=Bestiole.distanceToBst(perceivedBsts[nbbestiole]);
+        if ((perceivedBsts[nbbestiole].x)<min || nbbestiole==0){
+            min=distance
+            nearest= perceivedBsts[nbbestiole];
         }
 
     } 
-    return 0;
+    return (nearest.x,nearest.y);
 };
 
 double ComportementKamikaze::get_vitesse(std::list<Bestiole> perceivedBsts){
@@ -32,7 +36,4 @@ double ComportementKamikaze::get_vitesse(std::list<Bestiole> perceivedBsts){
 
 void ComportementKamikaze::set_color(){
     // TODO
-}
-int ComportementKamikaze::distance(Bestiole bestiole1,Bestiole bestiole2){
-    return sqrt();
 }
