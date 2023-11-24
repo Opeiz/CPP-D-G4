@@ -11,7 +11,7 @@ class ComportementKamikaze: public Comportement{
         T* Color;
 
     public :                                 
-        double get_orientation(std::list<Bestiole> perceivedBsts); 
+        std::tuple<int, int> get_orientation(std::list<Bestiole> perceivedBsts); 
         double get_vitesse(std::list<Bestiole> perceivedBsts);
         void   set_color();                                          
 

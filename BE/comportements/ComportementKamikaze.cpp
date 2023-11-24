@@ -14,7 +14,7 @@ const T    red[] =      { (T)255,   (T)0,   (T)0 };
 // const T    white[] =    { (T)255,   (T)255, (T)255 };
 // const T    black[] =    { (T)0,     (T)0,   (T)0 };
 
-double ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
+std::tuple<int, int> ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
     //iterate on bestiole to know the nearest 
     Bestiole nearest=perceivedBsts[0];
     for (nbbestiole , nbbestiole <len(perceivedBsts), nbbestiole++){
@@ -26,7 +26,7 @@ double ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
         }
 
     } 
-    return (nearest.x,nearest.y);
+    return  std::make_tuple(nearest.x, nearest.y);
 };
 
 double ComportementKamikaze::get_vitesse(std::list<Bestiole> perceivedBsts){

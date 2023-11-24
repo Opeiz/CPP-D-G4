@@ -20,6 +20,10 @@ Yeux::Yeux(float alpha, float delta, float gamma){
 }
 
 void Yeux::detecter(std::list<Bestiole*> perceivedBsts){
-    
+    for (Bestiole* bestiole: perceivedBsts) {
+        int x2 = bestiole.x;
+        int y2 = bestiole.y;
+        
+    }
 
 }

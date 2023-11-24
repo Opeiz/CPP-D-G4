@@ -78,9 +78,8 @@ void Milieu::step( void ){
 
    // Bestiole Birth
    int probBirthValue = std::rand() % 100; // Between 0 and 99
-   int threshBirth = 97;
 
-   if (probBirthValue > threshBirth){
+   if (probBirthValue > 96){ // probBirthValue will choose a number btw 0 and 99 and if is higher than 96 will create a new bestiole
       addMember(Bestiole());
    }
 
@@ -108,7 +107,12 @@ int Milieu::nbVoisins( const Bestiole & b ){
 }
 
 void Milieu::addMember( const Bestiole & b){
+   int probMulti = std::rand() % 100;
    
+   if (probMulti > 80){
+      printf("Es esquizofrenico!");
+   }
+
    listeBestioles.push_back(b); 
    listeBestioles.back().initCoords(width, height); 
 
