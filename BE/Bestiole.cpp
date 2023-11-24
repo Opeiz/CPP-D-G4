@@ -6,7 +6,7 @@
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
-const double      Bestiole::COLLISION_DEATH_RATE = 0.3; // Prob of dying in collision
+const double      Bestiole::COLLISION_DEATH_RATE = 0.1; // Prob of dying in collision
 
 int               Bestiole::next = 0;
 
@@ -159,13 +159,13 @@ bool Bestiole::diedInCollision(){
 
    // TODO: Consider carapace
 
-   if (((rand() % 1000) / 1000) <= COLLISION_DEATH_RATE){
+   if (((rand() % 1000) / 1000.0) <= COLLISION_DEATH_RATE){
       // Death
       return True;
-   }
-   else {
+   } else {
       // Survival
-      // TODO
+      double theta = this->orientation;
+      this->orientation = (theta >= M_PI) ? (theta - M_PI) : (theta + M_PI);
       return False;
    }
 }

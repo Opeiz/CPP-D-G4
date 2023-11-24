@@ -66,13 +66,23 @@ void Milieu::step( void ){
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       // Step 3 and 4
       // TODO
-      // Compute distance matrix between all bestioles
 
-      for (std::list<Bestiole>::iterator it2 = listeBestioles.begin(); it2 != listeBestioles.end(); ++it2){
+      bool itCollided = False;
+      for (std::list<Bestiole>::iterator it2 = it; it2 != listeBestioles.end(); ++it2){
          // Iterate over all bestioles to see if distance is too small
          if ((*it != *it2) && (it->distanceToBst(*it2) <= collisionDist)){
             printf("A collision just happened!\n");
+            // Check for death.
+            itCollided = True;
+
+            if (it2->diedInCollision()){
+               it2 = listeBestioles.erase(it2);
+            }
          }
+      }
+
+      if (itCollided && (it->diedInCollision())){ // Right side of && is not evaluated if itCollided == False
+         it = listeBestioles.erase(it);
       }
    }
 
