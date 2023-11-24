@@ -9,4 +9,4 @@ class Comportement{
         virtual void set_color() = 0; // TODO: May need to take parameter to change a bestioles color                                    
 };
 
-#endif 
+#endif

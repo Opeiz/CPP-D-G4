@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
+#include <cmath>
 
 #include "Milieu.h"
 
@@ -67,15 +68,18 @@ void Milieu::step( void ){
       // Compute distance matrix between all bestioles
    }
 
-   // Bestiole birth
-   // TODO
+   // Bestiole Birth
+   int probBirthValue = std::rand() % 100; // Between 0 and 99
+   int threshBirth = 97;
+
+   if (probBirthValue > threshBirth){
+      addMember(Bestiole());
+   }
 
    // Iteration over bestioles who have survived this timestep (steps 6 to 10)
-   // TODO
+   // TODO 
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       
-
-
       // Steps 9 and 10
       it->action( *this );
       it->draw( *this );

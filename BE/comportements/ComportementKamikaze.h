@@ -13,7 +13,7 @@ class ComportementKamikaze: public Comportement{
     public :                                 
         double get_orientation(std::list<Bestiole> perceivedBsts); 
         double get_vitesse(std::list<Bestiole> perceivedBsts);
-        void set_color();                                          
+        void   set_color();                                          
 
 };
 
