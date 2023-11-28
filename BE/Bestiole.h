@@ -29,6 +29,7 @@ class Bestiole{
 
    public:
       bool              isMultiplePerso;
+      Comportement    * comportement;
 
    private :
       void bouge( int xLim, int yLim );

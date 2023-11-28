@@ -88,8 +88,9 @@ void Milieu::step( void ){
 
    // Bestiole Birth
    int probBirthValue = std::rand() % 100; // Between 0 and 99
+   int theshBirth = 96;
 
-   if (probBirthValue > 96){ // probBirthValue will choose a number btw 0 and 99 and if is higher than 96 will create a new bestiole
+   if (probBirthValue > theshBirth){ // probBirthValue will choose a number btw 0 and 99 and if is higher than 96 will create a new bestiole
       addMember(Bestiole());
    }
 

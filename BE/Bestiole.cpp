@@ -1,5 +1,9 @@
 #include "Bestiole.h"
 #include "Milieu.h"
+#include "comportements/ComportementKamikaze.h"
+#include "comportements/ComportementPeureuse.h"
+#include "comportements/ComportementGregaire.h"
+#include "comportements/ComportementPrevoyante.h"
 #include <cstdlib>
 #include <cmath>
 
@@ -24,9 +28,6 @@ Bestiole::Bestiole( void ){
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
 
    couleur = new T[ 3 ];
-   // couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   // couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   // couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
    couleur[ 0 ] = 0;
    couleur[ 1 ] = 0;
@@ -34,14 +35,38 @@ Bestiole::Bestiole( void ){
 
    // Probability of being MultiPerso
    int probMulti = std::rand() % 100; // Number between 0 and 99
+   int threshMulti = 85;
    
-   if (probMulti > 85){
-      printf("Es esquizofrenico!");
+   if (probMulti > threshMulti){
+      isMultiplePerso = 1;
+
+      //Just for now the color, then will change
+      couleur[0] = 255;
+      couleur[1] = 0;
+      couleur[2] = 0;
+   } else {
+      isMultiplePerso = 0;
    }
 
+   // int choosePerso = std::rand() % 4;
+   int choosePerso = 0;
+
+   switch (choosePerso) {
+   case 0:
+      comportement  = new ComportementKamikaze();
+      break;
+   case 1:
+      printf("Test 1");
+      break;
+   case 2:
+      printf("Test 2");
+      break;
+   case 3:
+      printf("Test 3");
+      break;
+   }
 
 }
-
 
 Bestiole::Bestiole( const Bestiole & b ){
    
@@ -60,15 +85,14 @@ Bestiole::Bestiole( const Bestiole & b ){
 
 }
 
-
 Bestiole::~Bestiole( void ){
 
    delete[] couleur;
+   delete comportement; // Delete comportement
 
    cout << "dest Bestiole" << endl;
 
 }
-
 
 void Bestiole::initCoords( int xLim, int yLim ){
 
