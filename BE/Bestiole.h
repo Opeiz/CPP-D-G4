@@ -28,6 +28,9 @@ class Bestiole{
       int               age;
 
       bool              isMultiplePerso;
+   
+   public:
+      double            camouflage;
 
    private :
       void bouge( int xLim, int yLim );

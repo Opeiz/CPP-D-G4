@@ -14,8 +14,21 @@ Oreilles::Oreilles(float delta, float gamma){
     gamma_o = (gamma_o < GAMMA_O_MAX) ? gamma_o : GAMMA_O_MAX;
 }
 
-std::list<Bestiole*> Oreilles::detecter(Bestiole bes, std::list<Bestiole> listeBestioles)
-{
+std::list<Bestiole*> Oreilles::detecter(Bestiole bes, std::list<Bestiole> listeBestioles) {
     
+    std::list<Bestiole*> perceivedBsts = {};
+
+    // Iterate over all bestioles to see if distance is inside detection range
+    for (std::list<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end(); ++it){
+        if ((bes != *it) && (bes.distanceToBst(*it) <= this->delta_o)){
+            // Check if detection power is greater that the camouflage of the other
+            if ((this->gamma_o ) > (it->camouflage)){
+                printf("A bestiole heard something!\n");
+                perceivedBsts.push_back(&(*it));
+            }
+        }
+    }
+
+    return perceivedBsts;
 }
 

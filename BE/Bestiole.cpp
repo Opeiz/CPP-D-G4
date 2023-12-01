@@ -23,6 +23,8 @@ Bestiole::Bestiole( void ){
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
 
+   camouflage = 0;
+
    couleur = new T[ 3 ];
    // couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    // couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -48,6 +50,7 @@ Bestiole::Bestiole( const Bestiole & b ){
    orientation = b.orientation;
    vitesse = b.vitesse;
    couleur = new T[ 3 ];
+   camouflage = b.camouflage;
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
 }
