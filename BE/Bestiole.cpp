@@ -224,6 +224,6 @@ void Bestiole::changeComportement(){
    this->chooseComportement();
 }
 
-double Bestiole::calculateAngle(Bestiole * b){
-    return std::atan2(b->y - this->y, b->x - this->x);
+double Bestiole::calculateAngle(const Bestiole &b){
+   return std::atan2(b.y - this->y, b.x - this->x);
 }

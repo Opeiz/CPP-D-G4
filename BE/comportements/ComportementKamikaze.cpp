@@ -13,20 +13,23 @@ ComportementKamikaze::~ComportementKamikaze(void){
     printf("Destruction of Kamikaze Bestiole \n");
 }
 
-double ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
+double ComportementKamikaze::get_orientation(Bestiole & current, std::list<Bestiole> perceivedBsts){
     
     // For all the bestioles in the list, search for the closest one
-    double avgOrientation = 0;
-    for (std::list<Bestiole>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
-        avgOrientation += it->orientation;
-    }
-    avgOrientation /= perceivedBsts.size();
-    return avgOrientation;
-};
+    Bestiole * closest = nullptr;
+    double minDist = 1000;
 
-double ComportementKamikaze::calculateAngle(Bestiole * b){
-    return std::atan2(b->y - this->y, b->x - this->x);
-}
+    for (std::list<Bestiole>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
+        double distance = it->distanceToBst(*it);
+        if (distance < minDist){
+            minDist = distance;
+            closest = &(*it);
+        }
+    }
+
+    double newOrientation = current.calculateAngle(*closest);
+    return newOrientation;
+};
 
 void ComportementKamikaze::execute(){
 }

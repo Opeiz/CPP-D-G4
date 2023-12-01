@@ -14,10 +14,7 @@ class ComportementKamikaze: public Comportement{
         ComportementKamikaze( void );
         ~ComportementKamikaze( void );
 
-        // std::tuple<int, int> get_orientation(std::list<Bestiole> perceivedBsts); 
-        // double get_vitesse(std::list<Bestiole> perceivedBsts);
-        // void   set_color(); 
-
+        double get_orientation(Bestiole &current, std::list<Bestiole> perceivedBsts);
         void execute();
 
 };

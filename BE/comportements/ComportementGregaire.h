@@ -14,8 +14,7 @@ class ComportementGregaire: public Comportement{
         ComportementGregaire( void );
         ~ComportementGregaire( void );
         
-        // std::tuple<int, int> get_orientation(std::list<Bestiole> perceivedBsts); 
-        // double get_vitesse(std::list<Bestiole> perceivedBsts);
+        double get_orientation(std::list<Bestiole> perceivedBsts);
 
         void execute();
 
