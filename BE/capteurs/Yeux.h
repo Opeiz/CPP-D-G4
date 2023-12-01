@@ -20,7 +20,7 @@ class Yeux : public Capteur{
     public:
         Yeux();
         Yeux(float alpha, float delta, float gamma);
-        void detecter(std::list<Bestiole*> perceivedBsts);
+        std::list<Bestiole*> detecter(Bestiole bes, std::list<Bestiole> listeBestioles);
 };
 
 #endif

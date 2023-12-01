@@ -4,7 +4,6 @@ Yeux::Yeux(){
     alpha_y = ALPHA_Y_MIN + (ALPHA_Y_MAX-ALPHA_Y_MIN)*((float) rand()) / (float) RAND_MAX;
     delta_y = DELTA_Y_MIN + (DELTA_Y_MAX-DELTA_Y_MIN)*((float) rand()) / (float) RAND_MAX;
     gamma_y = GAMMA_Y_MIN + (GAMMA_Y_MAX-GAMMA_Y_MIN)*((float) rand()) / (float) RAND_MAX;
-
 }
 
 Yeux::Yeux(float alpha, float delta, float gamma){
@@ -19,11 +18,6 @@ Yeux::Yeux(float alpha, float delta, float gamma){
 
 }
 
-void Yeux::detecter(std::list<Bestiole*> perceivedBsts){
-    for (Bestiole* bestiole: perceivedBsts) {
-        int x2 = bestiole.x;
-        int y2 = bestiole.y;
-        
-    }
+std::list<Bestiole*> Yeux::detecter(Bestiole bes, std::list<Bestiole> listeBestioles){
 
 }
