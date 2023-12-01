@@ -62,6 +62,7 @@ Bestiole::Bestiole( const Bestiole & b ){
    vitesse = b.vitesse;
    couleur = new T[ 3 ];
    isMultiplePerso = b.isMultiplePerso;
+   comportement = b.comportement;
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
 }
