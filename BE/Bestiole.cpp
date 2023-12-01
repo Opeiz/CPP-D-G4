@@ -4,6 +4,7 @@
 #include "Bestiole.h"
 #include "Milieu.h"
 #include "Oreilles.h"
+#include "Yeux.h"
 
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -25,10 +26,12 @@ Bestiole::Bestiole( void ){
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
    
-   // Add ears to all bestioles
+   // Add eyes and ears to all bestioles
    // THIS IS JUST FOR TESTING
    Capteur* pOreilles = new Oreilles;
    listeCapteurs.push_back(pOreilles);
+   Capteur* pYeux = new Yeux;
+   listeCapteurs.push_back(pYeux);
    camouflage = 0;
 
    couleur = new T[ 3 ];
@@ -187,4 +190,16 @@ bool Bestiole::diedInCollision(){
       this->orientation = (theta >= M_PI) ? (theta - M_PI) : (theta + M_PI);
       return False;
    }
+}
+
+double Bestiole::angleToBst(const Bestiole &b){
+    return std::atan2(b.y - this->y, b.x - this->x);
+}
+
+double Bestiole::relAngleToBst(const Bestiole &b){
+   double absAngle = this->angleToBst(b);
+   double relAngle = absAngle > M_PI ? absAngle - 2 * M_PI : absAngle;
+   relAngle = relAngle < -M_PI ? relAngle + 2 * M_PI : relAngle;
+
+   return relAngle;
 }

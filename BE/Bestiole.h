@@ -62,6 +62,10 @@ class Bestiole{
       // Collision-related functions
       double distanceToBst(const Bestiole &b);
       bool diedInCollision();
+
+      // Detection-related functions
+      double angleToBst(const Bestiole &b);
+      double relAngleToBst(const Bestiole &b);
 };
 
 

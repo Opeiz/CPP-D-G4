@@ -17,7 +17,7 @@ Oreilles::Oreilles(float delta, float gamma){
     gamma_o = (gamma_o < GAMMA_O_MAX) ? gamma_o : GAMMA_O_MAX;
 }
 
-std::list<Bestiole*> Oreilles::detecter(Bestiole &bes, std::list<Bestiole> &listeBestioles) const{
+std::list<Bestiole*> Oreilles::detecter(Bestiole &bes, std::list<Bestiole> &listeBestioles) const {
     
     std::list<Bestiole*> perceivedBsts = {};
 
