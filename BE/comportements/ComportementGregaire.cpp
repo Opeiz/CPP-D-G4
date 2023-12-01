@@ -1,9 +1,10 @@
-// #include <cstdlib>
-// #include <list>
-// #include <cmath>
-// #include "Bestiole.h"
-// #include "UImg.h"
-// #include "ComportementKamikaze.h"
+#include <cstdlib>
+#include <list>
+#include <cmath>
+
+#include "Bestiole.h"
+#include "UImg.h"
+#include "ComportementGregaire.h"
 
 
 // std::tuple<int, int> ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
@@ -29,7 +30,13 @@
 // void ComportementKamikaze::set_color(){
 //     // TODO
 // }
+ComportementGregaire::ComportementGregaire(void){
+    printf("Creation of a Gregaire Bestiole \n");
+}
+ComportementGregaire::~ComportementGregaire(void){
+    printf("Destruction of Gregaire Bestiole \n");
+}
 
-// void execute(){
-//     printf("!Soy Gregaire! \n");
-// }
+void ComportementGregaire::execute(){
+    printf("TEST QLO DE MIERDA LARGO");
+}

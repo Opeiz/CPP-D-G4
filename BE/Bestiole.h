@@ -55,6 +55,7 @@ class Bestiole{
       // Collision-related functions
       double distanceToBst(const Bestiole &b);
       bool diedInCollision();
+      void chooseComportement();
 };
 
 

@@ -71,7 +71,7 @@ void Milieu::step( void ){
       for (std::list<Bestiole>::iterator it2 = it; it2 != listeBestioles.end(); ++it2){
          // Iterate over all bestioles to see if distance is too small
          if ((*it != *it2) && (it->distanceToBst(*it2) <= collisionDist)){
-            printf("A collision just happened!\n");
+            // printf("A collision just happened!\n");
             // Check for death.
             itCollided = True;
 

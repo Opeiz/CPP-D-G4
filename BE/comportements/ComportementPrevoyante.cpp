@@ -1,9 +1,10 @@
-// #include <cstdlib>
-// #include <list>
-// #include <cmath>
-// #include "Bestiole.h"
-// #include "UImg.h"
-// #include "ComportementKamikaze.h"
+#include <cstdlib>
+#include <list>
+#include <cmath>
+
+#include "Bestiole.h"
+#include "UImg.h"
+#include "ComportementPrevoyante.h"
 
 
 // std::tuple<int, int> ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
@@ -29,7 +30,13 @@
 // void ComportementKamikaze::set_color(){
 //     // TODO
 // }
+ComportementPrevoyante::ComportementPrevoyante(void){
+    printf("Creation of a Prevoyante Bestiole \n");
+}
+ComportementPrevoyante::~ComportementPrevoyante(void){
+    printf("Destruction of Prevoyante Bestiole \n");
+}
 
-// void execute(){
-//     printf("!Soy Prevoyante! \n");
-// }
+void ComportementPrevoyante::execute(){
+    printf("TEST QLO DE MIERDA LARGO");
+}

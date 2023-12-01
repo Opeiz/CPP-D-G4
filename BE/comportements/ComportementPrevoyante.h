@@ -1,22 +1,25 @@
-// #ifndef _COMP_KAMI_H_
-// #define _COMP_KAMI_H_
+#ifndef __COMPORTEMENT_PREVOYANTE_H__
+#define __COMPORTEMENT_PREVOYANTE_H__
 
-// #include <list>
+#include <list>
 
-// #include "Bestiole.h"
-// #include "comportements/Comportement.h"
+#include "Bestiole.h"
+#include "comportements/Comportement.h"
 
-// class ComportementKamikaze: public Comportement{
-//     private :
-//         T* Color;
+class ComportementPrevoyante: public Comportement{
+    private :
+        T* Color;
 
-//     public :                                 
-//         std::tuple<int, int> get_orientation(std::list<Bestiole> perceivedBsts); 
-//         double get_vitesse(std::list<Bestiole> perceivedBsts);
-//         void   set_color(); 
+    public :
+        ComportementPrevoyante( void );
+        ~ComportementPrevoyante( void );
+        
+        // std::tuple<int, int> get_orientation(std::list<Bestiole> perceivedBsts); 
+        // double get_vitesse(std::list<Bestiole> perceivedBsts);
+        // void   set_color(); 
 
-//         void execute();                                         
+        void execute();
 
-// };
+};
 
-// #endif 
+#endif 

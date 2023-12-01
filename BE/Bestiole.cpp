@@ -48,23 +48,7 @@ Bestiole::Bestiole( void ){
       isMultiplePerso = 0;
    }
 
-   // int choosePerso = std::rand() % 4;
-   int choosePerso = 0;
-
-   switch (choosePerso) {
-   case 0:
-      comportement  = new ComportementKamikaze();
-      break;
-   case 1:
-      printf("Test 1");
-      break;
-   case 2:
-      printf("Test 2");
-      break;
-   case 3:
-      printf("Test 3");
-      break;
-   }
+   chooseComportement();
 
 }
 
@@ -200,4 +184,41 @@ bool Bestiole::diedInCollision(){
       this->orientation = (theta >= M_PI) ? (theta - M_PI) : (theta + M_PI);
       return False;
    }
+}
+
+void Bestiole::chooseComportement(){
+   
+   int choosePerso = std::rand() % 4;
+
+   switch (choosePerso) {
+      case 0:
+         this->comportement  = new ComportementKamikaze();
+         this->couleur[0] = 255;
+         this->couleur[1] = 0;
+         this->couleur[2] = 0;
+         break;
+      case 1:
+         this->comportement  = new ComportementGregaire();
+         this->couleur[0] = 0;
+         this->couleur[1] = 0;
+         this->couleur[2] = 255;
+
+         break;
+      case 2:
+         this->comportement  = new ComportementPeureuse();
+         this->couleur[0] = 0;
+         this->couleur[1] = 255;
+         this->couleur[2] = 0;
+         
+         break;
+      case 3:
+         this->comportement  = new ComportementPrevoyante();
+         this->couleur[0] = 255;
+         this->couleur[1] = 193;
+         this->couleur[2] = 203;
+         
+         break;
+   }
+   
+   // this->comportement = c;
 }

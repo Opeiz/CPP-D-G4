@@ -31,10 +31,10 @@
 //     // TODO
 // }
 ComportementKamikaze::ComportementKamikaze(void){
-    cout << "Creation of a Kamikaze Bestioles \n" << endl;
+    printf("Creation of a Kamikaze Bestiole \n");
 }
 ComportementKamikaze::~ComportementKamikaze(void){
-    cout << "DESTRUYE TODOOOOO \n" << endl;
+    printf("Destruction of Kamikaze Bestiole \n");
 }
 
 void ComportementKamikaze::execute(){
