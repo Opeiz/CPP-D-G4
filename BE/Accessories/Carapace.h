@@ -1,12 +1,10 @@
-#ifndef _NAGE_H_
-#define _NAGE_H_
+#ifndef _CARA_H_
+#define _CARA_H_
 
-#include "../Bestiole.h"
 #include "Accessory.h"
 
 class Carapace: public Accessory{
     private :
-        string name;
         float coef_prob;
         float speed;
 

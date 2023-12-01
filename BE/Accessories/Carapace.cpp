@@ -1,8 +1,7 @@
-#include "../Bestiole.h"
+
 #include "Carapace.h"
 
 Carapace::Carapace( void ){
-    name="Carapace";
     coef_prob=0;
     speed=0;
 }

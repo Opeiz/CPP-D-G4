@@ -1,8 +1,12 @@
 #include "Bestiole.h"
 #include "Milieu.h"
+#include "Accessories/Carapace.h"
+#include "Accessories/Nageoire.h"
+#include "Accessories/Camouflage.h"
+
+
 #include <cstdlib>
 #include <cmath>
-
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
@@ -11,6 +15,10 @@ const double      Bestiole::COLLISION_DEATH_RATE = 0.1; // Prob of dying in coll
 int               Bestiole::next = 0;
 
 Bestiole::Bestiole( void ){
+   // Nageoire nageoire = new Nageoire();
+
+   // Camouflage camouflage;
+   // Carapace carapace;
    age = 0;
    maxAge = rand() % 500 + 150; // range btw 50-400
    
@@ -22,7 +30,6 @@ Bestiole::Bestiole( void ){
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-
    couleur = new T[ 3 ];
    // couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    // couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -169,3 +176,22 @@ bool Bestiole::diedInCollision(){
       return False;
    }
 }
+ void Bestiole::chooseAccessory(){
+   
+   int choosePerso = std::rand() % 3;
+   switch (choosePerso) {
+      case 0:
+         this->accessory = new Nageoire();
+         // this->vitesse = accessory.get_speed()*this->vitesse;
+         break;
+      case 1:
+         this->accessory  = new Camouflage();
+         break;
+      case 2:
+         this->accessory  = new Carapace();
+         
+         break;
+   }
+
+ }
+

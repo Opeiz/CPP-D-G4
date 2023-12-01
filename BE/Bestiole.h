@@ -3,7 +3,7 @@
 
 #include "UImg.h"
 #include "comportements/Comportement.h"
-
+#include "Accessories/Accessory.h"
 class Milieu;
 
 class Bestiole{
@@ -28,7 +28,7 @@ class Bestiole{
       int               age;
 
       bool              isMultiplePerso;
-
+      Accessory    * accessory;
    private :
       void bouge( int xLim, int yLim );
 
@@ -53,6 +53,7 @@ class Bestiole{
       // Collision-related functions
       double distanceToBst(const Bestiole &b);
       bool diedInCollision();
+      void chooseAccessory();
 };
 
 

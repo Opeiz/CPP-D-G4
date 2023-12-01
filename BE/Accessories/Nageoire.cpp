@@ -1,8 +1,6 @@
-#include "../Bestiole.h"
 #include "Nageoire.h"
 
 Nageoire::Nageoire( void ){
-    name="Nageoire";
     speed=0;
 }
 

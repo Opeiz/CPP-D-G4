@@ -1,8 +1,6 @@
-#include "../Bestiole.h"
 #include "Camouflage.h"
 
 Camouflage::Camouflage( void ){
-    name="Camouflage";
     coef_camouflage=0;
 }
 
