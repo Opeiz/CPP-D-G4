@@ -57,7 +57,8 @@ class Bestiole{
       bool diedInCollision();
       void chooseComportement();
       void changeComportement();
-};
+      double calculateAngle(Bestiole * b);
+}; 
 
 
 #endif

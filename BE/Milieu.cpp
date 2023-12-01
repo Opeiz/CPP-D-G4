@@ -104,16 +104,14 @@ void Milieu::step( void ){
       // Changing the comportement of the bestiole if it is a multiple personality true
       if (it->isMultiplePerso){
          int probMulti = std::rand() % 100; // Number between 0 and 99
-         int threshMulti = 95;
+         int threshMulti = 97;
          if (probMulti > threshMulti){
             it->changeComportement();  
          }
       }
 
-
       // Step 8
 
-      
       // Steps 9 and 10
       it->action( *this );
       it->draw( *this );

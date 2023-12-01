@@ -223,3 +223,7 @@ void Bestiole::changeComportement(){
    delete this->comportement;
    this->chooseComportement();
 }
+
+double Bestiole::calculateAngle(Bestiole * b){
+    return std::atan2(b->y - this->y, b->x - this->x);
+}
