@@ -56,6 +56,7 @@ class Bestiole{
       double distanceToBst(const Bestiole &b);
       bool diedInCollision();
       void chooseComportement();
+      void changeComportement();
 };
 
 

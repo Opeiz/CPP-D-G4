@@ -38,14 +38,10 @@ Bestiole::Bestiole( void ){
    int threshMulti = 85;
    
    if (probMulti > threshMulti){
-      isMultiplePerso = 1;
-
-      //Just for now the color, then will change
-      couleur[0] = 255;
-      couleur[1] = 0;
-      couleur[2] = 0;
+      isMultiplePerso = true;
+      printf("Bestiole %d is a MultiPerso\n", identite);
    } else {
-      isMultiplePerso = 0;
+      isMultiplePerso = false;
    }
 
    chooseComportement();
@@ -65,6 +61,7 @@ Bestiole::Bestiole( const Bestiole & b ){
    orientation = b.orientation;
    vitesse = b.vitesse;
    couleur = new T[ 3 ];
+   isMultiplePerso = b.isMultiplePerso;
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
 }
@@ -196,6 +193,7 @@ void Bestiole::chooseComportement(){
          this->couleur[0] = 255;
          this->couleur[1] = 0;
          this->couleur[2] = 0;
+
          break;
       case 1:
          this->comportement  = new ComportementGregaire();
@@ -219,6 +217,9 @@ void Bestiole::chooseComportement(){
          
          break;
    }
-   
-   // this->comportement = c;
+}
+
+void Bestiole::changeComportement(){
+   delete this->comportement;
+   this->chooseComportement();
 }
