@@ -1,4 +1,7 @@
-#include "capteurs/Oreilles.h"
+#include "Oreilles.h"
+#include "Bestiole.h"
+
+#include <iostream>
 
 Oreilles::Oreilles(){
     delta_o = DELTA_O_MIN + (DELTA_O_MAX-DELTA_O_MIN)*((float) rand()) / (float) RAND_MAX;
@@ -14,7 +17,7 @@ Oreilles::Oreilles(float delta, float gamma){
     gamma_o = (gamma_o < GAMMA_O_MAX) ? gamma_o : GAMMA_O_MAX;
 }
 
-std::list<Bestiole*> Oreilles::detecter(Bestiole bes, std::list<Bestiole> listeBestioles) {
+std::list<Bestiole*> Oreilles::detecter(Bestiole &bes, std::list<Bestiole> &listeBestioles) const{
     
     std::list<Bestiole*> perceivedBsts = {};
 
@@ -23,7 +26,6 @@ std::list<Bestiole*> Oreilles::detecter(Bestiole bes, std::list<Bestiole> listeB
         if ((bes != *it) && (bes.distanceToBst(*it) <= this->delta_o)){
             // Check if detection power is greater that the camouflage of the other
             if ((this->gamma_o ) > (it->camouflage)){
-                printf("A bestiole heard something!\n");
                 perceivedBsts.push_back(&(*it));
             }
         }
@@ -32,3 +34,6 @@ std::list<Bestiole*> Oreilles::detecter(Bestiole bes, std::list<Bestiole> listeB
     return perceivedBsts;
 }
 
+Capteur* Oreilles::clone() const {
+    return new Oreilles(*this);
+}

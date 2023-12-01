@@ -2,22 +2,26 @@
 #define _BESTIOLES_H_
 
 #include "UImg.h"
-#include "comportements/Comportement.h"
+#include "Capteur.h"
+
+#include <list>
 
 class Milieu;
 
 class Bestiole{
 
    private :
+      // Constant values
       static const double     AFF_SIZE;
       static const double     MAX_VITESSE;
       static const double     LIMITE_VUE;
       static const double     COLLISION_DEATH_RATE;
 
-      static int              next; 
+      static int              next;
 
-   private :
       int               identite;
+
+      // Variable attributes
       int               x, y;
       double            cumulX, cumulY;
       double            orientation;
@@ -31,6 +35,8 @@ class Bestiole{
    
    public:
       double            camouflage;
+      std::list<Capteur*>   listeCapteurs;
+      std::list<Bestiole*>  perceivedBsts; // std::set to avoid double perception
 
    private :
       void bouge( int xLim, int yLim );

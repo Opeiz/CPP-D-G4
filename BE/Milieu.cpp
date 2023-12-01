@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
+#include <set>
 #include <cmath>
 
 #include "Milieu.h"
@@ -65,13 +66,11 @@ void Milieu::step( void ){
 
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       // Step 3 and 4
-      // TODO
 
       bool itCollided = False;
       for (std::list<Bestiole>::iterator it2 = it; it2 != listeBestioles.end(); ++it2){
          // Iterate over all bestioles to see if distance is too small
          if ((*it != *it2) && (it->distanceToBst(*it2) <= collisionDist)){
-            printf("A collision just happened!\n");
             // Check for death.
             itCollided = True;
 
@@ -97,6 +96,18 @@ void Milieu::step( void ){
    // TODO 
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       
+      std::list<Bestiole*> perceivedBsts;
+
+      // Check what each available capteur detects
+      for (std::list<Capteur*>::const_iterator capt_it = (it->listeCapteurs).begin(); capt_it != it->listeCapteurs.end(); ++capt_it){
+         std::list<Bestiole*> captPerceivedBsts = (*capt_it)->detecter(*it, listeBestioles);
+         perceivedBsts.splice(perceivedBsts.end(), captPerceivedBsts, captPerceivedBsts.begin(), captPerceivedBsts.end());
+      }
+
+      perceivedBsts.sort();
+      perceivedBsts.unique();
+      it->perceivedBsts = perceivedBsts;
+
       // Steps 9 and 10
       it->action( *this );
       it->draw( *this );
@@ -117,10 +128,10 @@ int Milieu::nbVoisins( const Bestiole & b ){
 }
 
 void Milieu::addMember( const Bestiole & b){
-   int probMulti = std::rand() % 100;
+   int probMulti = 20;
    
-   if (probMulti > 80){
-      printf("Es esquizofrenico!");
+   if ((std::rand() % 100) < probMulti){
+      printf("Es esquizofrenico!\n");
    }
 
    listeBestioles.push_back(b); 

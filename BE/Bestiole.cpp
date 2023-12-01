@@ -1,7 +1,9 @@
-#include "Bestiole.h"
-#include "Milieu.h"
 #include <cstdlib>
 #include <cmath>
+
+#include "Bestiole.h"
+#include "Milieu.h"
+#include "Oreilles.h"
 
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -22,7 +24,11 @@ Bestiole::Bestiole( void ){
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-
+   
+   // Add ears to all bestioles
+   // THIS IS JUST FOR TESTING
+   Capteur* pOreilles = new Oreilles;
+   listeCapteurs.push_back(pOreilles);
    camouflage = 0;
 
    couleur = new T[ 3 ];
@@ -51,6 +57,12 @@ Bestiole::Bestiole( const Bestiole & b ){
    vitesse = b.vitesse;
    couleur = new T[ 3 ];
    camouflage = b.camouflage;
+
+   for (std::list<Capteur*>::const_iterator capt_it = (b.listeCapteurs).begin(); capt_it != b.listeCapteurs.end(); ++capt_it){
+      // Iterate over capteurs of b and instantiate same type of capteurs in this
+      listeCapteurs.push_back((*capt_it)->clone());
+   }
+
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
 }
@@ -59,6 +71,10 @@ Bestiole::Bestiole( const Bestiole & b ){
 Bestiole::~Bestiole( void ){
 
    delete[] couleur;
+   for (std::list<Capteur*>::const_iterator capt_it = (this->listeCapteurs).begin(); capt_it != this->listeCapteurs.end(); ++capt_it){
+      // Iterate over capteurs of b and instantiate same type of capteurs in this
+      delete *capt_it;
+   }
 
    cout << "dest Bestiole" << endl;
 

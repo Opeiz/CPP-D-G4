@@ -7,11 +7,14 @@
 #include <list>
 
 #include "UImg.h"
-#include "Bestiole.h"
+
+class Bestiole;
 
 class Capteur{
     public:
-        virtual std::list<Bestiole*> detecter(Bestiole bes, std::list<Bestiole> listeBestioles)=0;
+        virtual std::list<Bestiole*> detecter(Bestiole &bes, std::list<Bestiole> &listeBestioles) const = 0;
+        virtual Capteur* clone() const = 0;
+        virtual ~Capteur(){};
 };
 
 #endif

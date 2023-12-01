@@ -1,6 +1,6 @@
 #ifndef _COMP_H_
 #define _COMP_H_
-#include "../Bestiole.h"
+
 class Comportement{
 
     public : 
