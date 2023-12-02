@@ -1,11 +1,13 @@
-#include "Bestiole.h"
-#include "Milieu.h"
-#include "comportements/ComportementKamikaze.h"
-#include "comportements/ComportementPeureuse.h"
-#include "comportements/ComportementGregaire.h"
-#include "comportements/ComportementPrevoyante.h"
 #include <cstdlib>
 #include <cmath>
+
+#include "Bestiole.h"
+#include "Milieu.h"
+#include "Oreilles.h"
+#include "Yeux.h"
+#include "Comportement.h"
+#include "ComportementGregaire.h"
+
 
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -14,7 +16,9 @@ const double      Bestiole::COLLISION_DEATH_RATE = 0.1; // Prob of dying in coll
 
 int               Bestiole::next = 0;
 
-Bestiole::Bestiole( void ){
+// Constructors and destructor
+
+Bestiole::Bestiole(const std::vector<Comportement*> &vecComportements){
    age = 0;
    maxAge = rand() % 500 + 150; // range btw 50-400
    
@@ -26,29 +30,35 @@ Bestiole::Bestiole( void ){
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+   
+   // Add eyes and ears to all bestioles
+   // THIS IS JUST FOR TESTING
+   Capteur* pOreilles = new Oreilles;
+   listeCapteurs.push_back(pOreilles);
+   Capteur* pYeux = new Yeux;
+   listeCapteurs.push_back(pYeux);
+   camouflage = 0;
 
-   couleur = new T[ 3 ];
+   couleur = new T[ 3 ]; // To be filled by chooseComportement()
 
-   couleur[ 0 ] = 0;
-   couleur[ 1 ] = 0;
-   couleur[ 2 ] = 0;
+   couleur[0] = 0;
+   couleur[1] = 0;
+   couleur[2] = 0;
 
    // Probability of being MultiPerso
-   int probMulti = std::rand() % 100; // Number between 0 and 99
-   int threshMulti = 85;
+   int const probMulti = 15; // Number between 0 and 99
    
-   if (probMulti > threshMulti){
+   if (std::rand() % 100 < probMulti){
       isMultiplePerso = true;
       printf("Bestiole %d is a MultiPerso\n", identite);
    } else {
       isMultiplePerso = false;
    }
 
-   chooseComportement();
-
+   chooseComportement(vecComportements);
 }
 
-Bestiole::Bestiole( const Bestiole & b ){
+Bestiole::Bestiole(const Bestiole & b){
    
    identite = ++next;
 
@@ -63,6 +73,13 @@ Bestiole::Bestiole( const Bestiole & b ){
    couleur = new T[ 3 ];
    isMultiplePerso = b.isMultiplePerso;
    comportement = b.comportement;
+   camouflage = b.camouflage;
+
+   for (std::list<Capteur*>::const_iterator capt_it = (b.listeCapteurs).begin(); capt_it != b.listeCapteurs.end(); ++capt_it){
+      // Iterate over capteurs of b and instantiate same type of capteurs in this
+      listeCapteurs.push_back((*capt_it)->clone());
+   }
+
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
 }
@@ -70,7 +87,11 @@ Bestiole::Bestiole( const Bestiole & b ){
 Bestiole::~Bestiole( void ){
 
    delete[] couleur;
-   delete comportement; // Delete comportement
+
+   for (std::list<Capteur*>::const_iterator capt_it = (this->listeCapteurs).begin(); capt_it != this->listeCapteurs.end(); ++capt_it){
+      // Iterate over capteurs of b and instantiate same type of capteurs in this
+      delete *capt_it;
+   }
 
    cout << "dest Bestiole" << endl;
 
@@ -132,6 +153,9 @@ void Bestiole::draw( UImg & support ){
 
 }
 
+
+// General utility functions
+
 bool operator==( const Bestiole & b1, const Bestiole & b2 ){
 
    return ( b1.identite == b2.identite );
@@ -142,6 +166,14 @@ bool operator!=( const Bestiole & b1, const Bestiole & b2 ){
 
    return ( b1.identite != b2.identite );
 
+}
+
+void Bestiole::setOrientation(double alpha_or){
+   orientation = alpha_or;
+}
+
+void Bestiole::setVitesse(double v){
+   vitesse = v;
 }
 
 bool Bestiole::jeTeVois( const Bestiole & b ) const{
@@ -184,47 +216,51 @@ bool Bestiole::diedInCollision(){
    }
 }
 
-void Bestiole::chooseComportement(){
+void Bestiole::chooseComportement(const std::vector<Comportement*> &vecComportements){
    
-   int choosePerso = std::rand() % 4;
+   int choosePerso = std::rand() % vecComportements.size();
+   this->comportement  = vecComportements[choosePerso];
 
    switch (choosePerso) {
       case 0:
-         this->comportement  = new ComportementKamikaze();
          this->couleur[0] = 255;
          this->couleur[1] = 0;
          this->couleur[2] = 0;
 
          break;
       case 1:
-         this->comportement  = new ComportementGregaire();
          this->couleur[0] = 0;
          this->couleur[1] = 0;
          this->couleur[2] = 255;
 
          break;
       case 2:
-         this->comportement  = new ComportementPeureuse();
          this->couleur[0] = 0;
          this->couleur[1] = 255;
          this->couleur[2] = 0;
          
          break;
       case 3:
-         this->comportement  = new ComportementPrevoyante();
          this->couleur[0] = 255;
          this->couleur[1] = 193;
          this->couleur[2] = 203;
          
          break;
+      default:
+         this->couleur[0] = 0;
+         this->couleur[1] = 0;
+         this->couleur[2] = 0;
    }
 }
 
-void Bestiole::changeComportement(){
-   delete this->comportement;
-   this->chooseComportement();
+double Bestiole::angleToBst(const Bestiole &b){
+    return std::atan2(b.y - this->y, b.x - this->x);
 }
 
-double Bestiole::calculateAngle(const Bestiole &b){
-   return std::atan2(b.y - this->y, b.x - this->x);
+double Bestiole::relAngleToBst(const Bestiole &b){
+   double absAngle = this->angleToBst(b);
+   double relAngle = absAngle > M_PI ? absAngle - 2 * M_PI : absAngle;
+   relAngle = relAngle < -M_PI ? relAngle + 2 * M_PI : relAngle;
+
+   return relAngle;
 }

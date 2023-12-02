@@ -7,23 +7,30 @@
 #include "ComportementGregaire.h"
 
 ComportementGregaire::ComportementGregaire(void){
-    printf("Creation of a Gregaire Bestiole \n");
+    printf("Creation of ComportementGregaire\n");
 }
 ComportementGregaire::~ComportementGregaire(void){
-    printf("Destruction of Gregaire Bestiole \n"); 
+    printf("Destruction of ComportementGregaire\n"); 
 }
 
-double ComportementGregaire::get_orientation(std::list<Bestiole> perceivedBsts){
+double ComportementGregaire::get_orientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     
     // For all the bestioles in the list, calculate the average orientation
     // and return it as a tuple
+
+    if (!perceivedBsts.size()){
+        // If list is empty keep going straight
+        return b.getOrientation();
+    }
+
     double avgOrientation = 0;
-    for (std::list<Bestiole>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
-        avgOrientation += it->getOrientation();
+    for (std::list<Bestiole*>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
+        avgOrientation += (*it)->getOrientation();
     }
     avgOrientation /= perceivedBsts.size();
     return avgOrientation;
-};
+}
 
-void ComportementGregaire::execute(){
+double ComportementGregaire::get_vitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+    return b.getVitesse();
 }

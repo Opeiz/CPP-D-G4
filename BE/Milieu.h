@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 
 #include "UImg.h"
 #include "Bestiole.h"
+#include "Comportement.h"
 
 using namespace std;
 
@@ -15,7 +17,8 @@ class Milieu : public UImg{
       static const T          white[];
 
       int                     width, height;
-      std::list<Bestiole>   listeBestioles;
+      std::list<Bestiole>     listeBestioles;
+      std::vector<Comportement*> vecComportements;
 
    public :
       Milieu( int _width, int _height );
@@ -23,6 +26,7 @@ class Milieu : public UImg{
 
       int getWidth( void ) const { return width; };
       int getHeight( void ) const { return height; };
+      const std::vector<Comportement*> getVecComportements() const {return this->vecComportements;} 
 
       void step( void );
 
