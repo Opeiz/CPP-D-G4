@@ -7,9 +7,6 @@
 
 #include "Milieu.h"
 #include "Comportement.h"
-#include "ComportementGregaire.h"
-#include "ComportementKamikaze.h"
-#include "ComportementPeureuse.h"
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -20,25 +17,12 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
 
    std::srand( time(NULL) );
 
-   // Initialize vector of comportements
-   Comportement* pCompGregaire = new ComportementGregaire;
-   vecComportements.push_back(pCompGregaire);
-   Comportement* pCompKamikaze = new ComportementKamikaze;
-   vecComportements.push_back(pCompKamikaze);
-   Comportement* pCompPeureuse = new ComportementPeureuse;
-   vecComportements.push_back(pCompPeureuse);
-   // TODO: The others
 }
 
 
 Milieu::~Milieu( void ){
 
    cout << "dest Milieu" << endl;
-
-   // Free memory from comportements
-   for (std::vector<Comportement*>::iterator comp_it = vecComportements.begin(); comp_it != vecComportements.end(); ++comp_it){
-      delete *comp_it;
-   }
 
 }
 
@@ -108,7 +92,7 @@ void Milieu::step( void ){
 
    // Bestiole Birth
    if ((std::rand() % 100) < PROB_BIRTH){
-      addMember(Bestiole(vecComportements));
+      addMember(Bestiole());
    }
 
    // Iteration over bestioles who have survived this timestep (steps 6 to 10)
@@ -133,8 +117,8 @@ void Milieu::step( void ){
       // Step 7 - Changing the comportement of multiple personality bestioles
 
       if (it->isMultiplePerso){
-         if (std::rand() % 100 < PROB_MULTI){
-            it->chooseComportement(vecComportements);
+         if (std::rand() % 100 < PROB_CHANGE){
+            it->chooseComportement();
          }
       }
 
@@ -151,21 +135,7 @@ void Milieu::step( void ){
    }
 }
 
-
-int Milieu::nbVoisins( const Bestiole & b ){
-
-   int         nb = 0;
-
-   for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == *it) && b.jeTeVois(*it) )
-         ++nb;
-
-   return nb;
-
-}
-
 void Milieu::addMember(const Bestiole &b){
-   std::cout << "Pushing back" << std::endl;
    listeBestioles.push_back(b); 
    listeBestioles.back().initCoords(width, height); 
 }

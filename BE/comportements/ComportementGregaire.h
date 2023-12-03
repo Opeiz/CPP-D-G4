@@ -7,15 +7,11 @@
 #include "Comportement.h"
 
 class ComportementGregaire: public Comportement {
-    private :
-        T* Color;
-
-    public :
-        ComportementGregaire(void);
-        ~ComportementGregaire(void);
-        
+    public:
         double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
         double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
+
+        Comportement* clone() const;
 };
 
 #endif 

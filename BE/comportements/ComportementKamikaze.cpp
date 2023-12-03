@@ -3,15 +3,7 @@
 #include <cmath>
 
 #include "Bestiole.h"
-#include "UImg.h"
 #include "ComportementKamikaze.h"
-
-ComportementKamikaze::ComportementKamikaze(void){
-    printf("Creation of ComportementKamikaze\n");
-}
-ComportementKamikaze::~ComportementKamikaze(void){
-    printf("Destruction of ComportementKamikaze\n");
-}
 
 double ComportementKamikaze::calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     // Check that perceivedBsts is not empty
@@ -37,4 +29,8 @@ double ComportementKamikaze::calculateOrientation(Bestiole &b, std::list<Bestiol
 
 double ComportementKamikaze::calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     return b.getVitesse();
+}
+
+Comportement* ComportementKamikaze::clone() const {
+    return new ComportementKamikaze(*this);
 }

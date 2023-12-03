@@ -5,7 +5,11 @@
 #include "Milieu.h"
 #include "Oreilles.h"
 #include "Yeux.h"
+
 #include "Comportement.h"
+#include "ComportementGregaire.h"
+#include "ComportementKamikaze.h"
+#include "ComportementPeureuse.h"
 
 
 const double      Bestiole::AFF_SIZE = 8.;
@@ -17,7 +21,7 @@ int               Bestiole::next = 0;
 
 // Constructors and destructor
 
-Bestiole::Bestiole(const std::vector<Comportement*> &vecComportements){
+Bestiole::Bestiole(){
    age = 0;
    maxAge = rand() % 500 + 150; // range btw 50-400
    
@@ -38,23 +42,13 @@ Bestiole::Bestiole(const std::vector<Comportement*> &vecComportements){
    listeCapteurs.push_back(pYeux);
    camouflage = 0;
 
+   comportement = nullptr;
    couleur = new T[ 3 ]; // To be filled by chooseComportement()
 
-   couleur[0] = 0;
-   couleur[1] = 0;
-   couleur[2] = 0;
-
    // Probability of being MultiPerso
-   int const probMulti = 15; // Number between 0 and 99
-   
-   if (std::rand() % 100 < probMulti){
-      isMultiplePerso = true;
-      printf("Bestiole %d is a MultiPerso\n", identite);
-   } else {
-      isMultiplePerso = false;
-   }
+   isMultiplePerso = std::rand() % 100 < PROB_MULTI;
 
-   chooseComportement(vecComportements);
+   chooseComportement();
 }
 
 Bestiole::Bestiole(const Bestiole & b){
@@ -71,7 +65,7 @@ Bestiole::Bestiole(const Bestiole & b){
    vitesse = b.vitesse;
    couleur = new T[ 3 ];
    isMultiplePerso = b.isMultiplePerso;
-   comportement = b.comportement;
+   comportement = b.comportement->clone();
    camouflage = b.camouflage;
 
    for (std::list<Capteur*>::const_iterator capt_it = (b.listeCapteurs).begin(); capt_it != b.listeCapteurs.end(); ++capt_it){
@@ -91,6 +85,8 @@ Bestiole::~Bestiole( void ){
       // Iterate over capteurs of b and instantiate same type of capteurs in this
       delete *capt_it;
    }
+
+   delete comportement;
 
    cout << "dest Bestiole " << this->identite << endl;
 
@@ -215,25 +211,32 @@ bool Bestiole::diedInCollision(){
    }
 }
 
-void Bestiole::chooseComportement(const std::vector<Comportement*> &vecComportements){
+void Bestiole::chooseComportement(){
    
-   int choosePerso = std::rand() % vecComportements.size();
-   this->comportement  = vecComportements[choosePerso];
+   if (this->comportement != nullptr){
+      delete this->comportement;
+   }
+
+   int choosePerso = std::rand() % NUM_COMPS;
 
    switch (choosePerso) {
       case 0:
+         // Gregaire
+         this->comportement = new ComportementGregaire;
          this->couleur[0] = 255;
          this->couleur[1] = 0;
          this->couleur[2] = 0;
 
          break;
       case 1:
+         this->comportement = new ComportementKamikaze;
          this->couleur[0] = 0;
          this->couleur[1] = 0;
          this->couleur[2] = 255;
 
          break;
       case 2:
+         this->comportement = new ComportementPeureuse;
          this->couleur[0] = 0;
          this->couleur[1] = 255;
          this->couleur[2] = 0;

@@ -8,6 +8,8 @@
 #include <list>
 #include <vector>
 
+#define PROB_MULTI 15 // Probability of being multiple personality
+
 class Milieu;
 
 class Bestiole{
@@ -45,10 +47,10 @@ class Bestiole{
    private :
       void bouge( int xLim, int yLim );
 
-   public :                                           // Forme canonique :
-      Bestiole(const std::vector<Comportement*> &vecComportements); // Constructeur par defaut
-      Bestiole( const Bestiole & b );                 // Constructeur de copies
-      ~Bestiole( void );                              // Destructeur
+   public :                            // Forme canonique :
+      Bestiole();                      // Constructeur par defaut
+      Bestiole( const Bestiole & b );  // Constructeur de copies
+      ~Bestiole(void);                 // Destructeur
                                                       // Operateur d'affectation binaire par defaut
       void action( Milieu & monMilieu );
       void draw( UImg & support );
@@ -74,7 +76,7 @@ class Bestiole{
       bool diedInCollision();
 
       // Personality functions
-      void chooseComportement(const std::vector<Comportement*> &vecComportements);
+      void chooseComportement();
 
       // Detection-related functions
       double relAngleToBst(const Bestiole &b);

@@ -3,15 +3,7 @@
 #include <cmath>
 
 #include "Bestiole.h"
-#include "UImg.h"
 #include "ComportementGregaire.h"
-
-ComportementGregaire::ComportementGregaire(void){
-    printf("Creation of ComportementGregaire\n");
-}
-ComportementGregaire::~ComportementGregaire(void){
-    printf("Destruction of ComportementGregaire\n"); 
-}
 
 double ComportementGregaire::calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     
@@ -33,4 +25,8 @@ double ComportementGregaire::calculateOrientation(Bestiole &b, std::list<Bestiol
 
 double ComportementGregaire::calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     return b.getVitesse();
+}
+
+Comportement* ComportementGregaire::clone() const {
+    return new ComportementGregaire(*this);
 }
