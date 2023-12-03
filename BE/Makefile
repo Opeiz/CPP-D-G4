@@ -4,16 +4,16 @@ INC_DIRS = -I . -I $(CAPT_DIR) -I $(COMP_DIR)
 COpts = -Wall -std=c++11 $(INC_DIRS)
 
 
-main : main.cpp Aquarium.o Bestiole.o Milieu.o Oreilles.o Yeux.o ComportementGregaire.o ComportementKamikaze.o
+main : main.cpp Aquarium.o Bestiole.o Milieu.o Oreilles.o Yeux.o ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o
 	g++ $(COpts) -o main $^  -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp Milieu.o
 	g++ $(COpts) -c Aquarium.cpp
 
-Bestiole.o : Bestiole.h Bestiole.cpp $(CAPT_DIR)/Capteur.h ComportementGregaire.o ComportementKamikaze.o
+Bestiole.o : Bestiole.h Bestiole.cpp $(CAPT_DIR)/Capteur.h ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o
 	g++ $(COpts) -c Bestiole.cpp
 
-Milieu.o : Milieu.h Milieu.cpp ComportementGregaire.o ComportementKamikaze.o
+Milieu.o : Milieu.h Milieu.cpp ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o
 	g++ $(COpts) -c Milieu.cpp
 
 Yeux.o: $(CAPT_DIR)/Yeux.h $(CAPT_DIR)/Yeux.cpp $(CAPT_DIR)/Capteur.h

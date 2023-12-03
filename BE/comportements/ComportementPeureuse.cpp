@@ -13,17 +13,13 @@ ComportementPeureuse::~ComportementPeureuse(void){
     printf("Destruction of Peureuse Bestiole \n");
 }
 
-double ComportementPeureuse::get_orientation(std::list<Bestiole> perceivedBsts){
+double ComportementPeureuse::calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
 
-    double avgOrientation = 0;
-    for (std::list<Bestiole>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
-        avgOrientation += it->getOrientation();
-    }
-    avgOrientation /= perceivedBsts.size();
+    if (perceivedBsts.size() <= LIM_PEUREUSE) return b.getOrientation();
 
-    avgOrientation = (avgOrientation >= M_PI) ? (avgOrientation - M_PI) : (avgOrientation + M_PI);
-    return avgOrientation;
+    return -b.getOrientation();
 };
 
-void ComportementPeureuse::execute(){
+double ComportementPeureuse::calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+    return b.getVitesse();
 }

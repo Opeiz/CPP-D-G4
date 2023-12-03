@@ -6,6 +6,8 @@
 #include "Bestiole.h"
 #include "comportements/Comportement.h"
 
+#define LIM_PEUREUSE 2 // Max number of detected bestioles before running away
+
 class ComportementPeureuse: public Comportement{
     private :
         T* Color;
@@ -14,9 +16,9 @@ class ComportementPeureuse: public Comportement{
         ComportementPeureuse( void );
         ~ComportementPeureuse( void );
         
-        double get_orientation(std::list<Bestiole> perceivedBsts);
+        double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
 
-        void execute();
+        double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
 
 };
 

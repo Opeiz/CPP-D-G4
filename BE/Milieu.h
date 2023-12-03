@@ -9,6 +9,9 @@
 #include "Bestiole.h"
 #include "Comportement.h"
 
+#define PROB_BIRTH 10   // Probability of a bestiole being born at each timestep
+#define PROB_MULTI 5    // Prob of changing personality
+
 using namespace std;
 
 class Milieu : public UImg{

@@ -9,6 +9,7 @@
 #include "Comportement.h"
 #include "ComportementGregaire.h"
 #include "ComportementKamikaze.h"
+#include "ComportementPeureuse.h"
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -24,6 +25,8 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
    vecComportements.push_back(pCompGregaire);
    Comportement* pCompKamikaze = new ComportementKamikaze;
    vecComportements.push_back(pCompKamikaze);
+   Comportement* pCompPeureuse = new ComportementPeureuse;
+   vecComportements.push_back(pCompPeureuse);
    // TODO: The others
 }
 
@@ -104,9 +107,7 @@ void Milieu::step( void ){
    }
 
    // Bestiole Birth
-   int const probBirth = 5;
-
-   if ((std::rand() % 100) < probBirth){
+   if ((std::rand() % 100) < PROB_BIRTH){
       addMember(Bestiole(vecComportements));
    }
 
@@ -132,8 +133,7 @@ void Milieu::step( void ){
       // Step 7 - Changing the comportement of multiple personality bestioles
 
       if (it->isMultiplePerso){
-         int probMulti = 5;
-         if (std::rand() % 100 < probMulti){
+         if (std::rand() % 100 < PROB_MULTI){
             it->chooseComportement(vecComportements);
          }
       }
