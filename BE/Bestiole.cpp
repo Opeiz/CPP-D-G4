@@ -6,7 +6,6 @@
 #include "Oreilles.h"
 #include "Yeux.h"
 #include "Comportement.h"
-#include "ComportementGregaire.h"
 
 
 const double      Bestiole::AFF_SIZE = 8.;
@@ -93,7 +92,7 @@ Bestiole::~Bestiole( void ){
       delete *capt_it;
    }
 
-   cout << "dest Bestiole" << endl;
+   cout << "dest Bestiole " << this->identite << endl;
 
 }
 
@@ -254,7 +253,7 @@ void Bestiole::chooseComportement(const std::vector<Comportement*> &vecComportem
 }
 
 double Bestiole::angleToBst(const Bestiole &b){
-    return std::atan2(b.y - this->y, b.x - this->x);
+    return std::atan2(-(b.y - this->y), b.x - this->x); // y axis points downwards
 }
 
 double Bestiole::relAngleToBst(const Bestiole &b){

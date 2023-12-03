@@ -6,9 +6,9 @@
 class Bestiole;
 
 // Arbitrary values
-#define ALPHA_Y_MIN 45.0
-#define ALPHA_Y_MAX 60.0
-#define DELTA_Y_MIN 10.0
+#define ALPHA_Y_MIN 60.0
+#define ALPHA_Y_MAX 90.0
+#define DELTA_Y_MIN 30.0
 #define DELTA_Y_MAX 50.0
 #define GAMMA_Y_MIN 0.5
 #define GAMMA_Y_MAX 0.9

@@ -14,8 +14,8 @@ class ComportementKamikaze: public Comportement{
         ComportementKamikaze( void );
         ~ComportementKamikaze( void );
 
-        double get_orientation(Bestiole &current, std::list<Bestiole> perceivedBsts);
-        void execute();
+        double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
+        double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
 
 };
 

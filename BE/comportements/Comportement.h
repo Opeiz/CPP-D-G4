@@ -8,8 +8,8 @@ class Bestiole;
 class Comportement{
 
     public:
-        virtual double get_orientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0 ; 
-        virtual double get_vitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0;
+        virtual double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0 ; 
+        virtual double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0;
         virtual ~Comportement(){};
 };
 

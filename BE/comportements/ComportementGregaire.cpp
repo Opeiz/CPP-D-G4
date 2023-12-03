@@ -13,7 +13,7 @@ ComportementGregaire::~ComportementGregaire(void){
     printf("Destruction of ComportementGregaire\n"); 
 }
 
-double ComportementGregaire::get_orientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+double ComportementGregaire::calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     
     // For all the bestioles in the list, calculate the average orientation
     // and return it as a tuple
@@ -31,6 +31,6 @@ double ComportementGregaire::get_orientation(Bestiole &b, std::list<Bestiole*> &
     return avgOrientation;
 }
 
-double ComportementGregaire::get_vitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+double ComportementGregaire::calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
     return b.getVitesse();
 }

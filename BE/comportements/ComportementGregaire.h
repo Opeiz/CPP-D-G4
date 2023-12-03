@@ -14,8 +14,8 @@ class ComportementGregaire: public Comportement {
         ComportementGregaire(void);
         ~ComportementGregaire(void);
         
-        double get_orientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
-        double get_vitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
+        double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
+        double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts);
 };
 
 #endif 

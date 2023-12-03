@@ -8,6 +8,7 @@
 #include "Milieu.h"
 #include "Comportement.h"
 #include "ComportementGregaire.h"
+#include "ComportementKamikaze.h"
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -21,6 +22,8 @@ Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
    // Initialize vector of comportements
    Comportement* pCompGregaire = new ComportementGregaire;
    vecComportements.push_back(pCompGregaire);
+   Comportement* pCompKamikaze = new ComportementKamikaze;
+   vecComportements.push_back(pCompKamikaze);
    // TODO: The others
 }
 
@@ -137,9 +140,9 @@ void Milieu::step( void ){
 
       // Step 8 - Calculate next orientation and speed
 
-      double newOrientation = it->comportement->get_orientation(*it, it->perceivedBsts);
+      double newOrientation = it->comportement->calculateOrientation(*it, it->perceivedBsts);
       it->setOrientation(newOrientation);
-      double newVitesse = it->comportement->get_vitesse(*it, it->perceivedBsts);
+      double newVitesse = it->comportement->calculateVitesse(*it, it->perceivedBsts);
       it->setVitesse(newVitesse);
 
       // Steps 9 and 10
@@ -161,7 +164,8 @@ int Milieu::nbVoisins( const Bestiole & b ){
 
 }
 
-void Milieu::addMember( const Bestiole & b){
+void Milieu::addMember(const Bestiole &b){
+   std::cout << "Pushing back" << std::endl;
    listeBestioles.push_back(b); 
    listeBestioles.back().initCoords(width, height); 
 }
