@@ -8,9 +8,8 @@ class Nageoire: public Accessory{
     private :
         float speed;
     public :
-        
-        Nageoire( void );                               // Constructeur par defaut
-        ~Nageoire ( void );    
+        Nageoire();                               // Constructeur par defaut
+        ~Nageoire ();    
         float get_speed();
         void set_coef(int coef);                                       
 

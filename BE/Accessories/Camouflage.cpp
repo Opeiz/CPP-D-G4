@@ -1,7 +1,9 @@
 #include "Camouflage.h"
 
-Camouflage::Camouflage( void ){
+Camouflage::Camouflage(){
     coef_camouflage=0;
+}
+Camouflage::~Camouflage(){
 }
 
 

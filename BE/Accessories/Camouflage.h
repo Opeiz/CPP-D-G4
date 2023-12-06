@@ -10,8 +10,8 @@ class Camouflage: public Accessory{
 
     public :
         
-        Camouflage( void );                               // Constructeur par defaut
-        ~Camouflage ( void );    
+        Camouflage();                               // Constructeur par defaut
+        ~Camouflage ();    
         float get_coef();
         void set_coef(int coef);                                       
 

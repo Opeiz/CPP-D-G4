@@ -10,8 +10,8 @@ class Carapace: public Accessory{
 
     public :
         
-        Carapace( void );                               // Constructeur par defaut
-        ~Carapace ( void );    
+        Carapace();                               // Constructeur par defaut
+        ~Carapace ();    
         float get_speed();
         float get_coef();
         void set_coef(int coef);

@@ -38,6 +38,7 @@ Bestiole::Bestiole( void ){
    couleur[ 0 ] = 0;
    couleur[ 1 ] = 0;
    couleur[ 2 ] = 0;
+   chooseAccessory();
 
 }
 
@@ -179,17 +180,23 @@ bool Bestiole::diedInCollision(){
  void Bestiole::chooseAccessory(){
    
    int choosePerso = std::rand() % 3;
+   Nageoire nageoire;
+   Camouflage camouflage;
+   Carapace carapace;
    switch (choosePerso) {
       case 0:
-         this->accessory = new Nageoire();
-         // this->vitesse = accessory.get_speed()*this->vitesse;
+         this->accessory = &nageoire;
+         this->vitesse=(this->vitesse)*(nageoire.get_speed());
+         printf("Nageoire!");
          break;
       case 1:
-         this->accessory  = new Camouflage();
+         this->accessory  = &camouflage;
+         printf("Camouflage!");
          break;
       case 2:
-         this->accessory  = new Carapace();
-         
+         this->accessory  = &carapace;
+         this->COLLISION_DEATH_RATE=carapace.get_coef();
+         printf("Carapace!");
          break;
    }
 

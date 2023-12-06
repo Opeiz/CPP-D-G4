@@ -1,11 +1,13 @@
 
 #include "Carapace.h"
 
-Carapace::Carapace( void ){
+Carapace::Carapace( ){
     coef_prob=0;
     speed=0;
 }
+Carapace::~Carapace( ){
 
+}
 
 float Carapace::get_speed(){
     return speed;

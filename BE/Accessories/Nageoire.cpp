@@ -1,9 +1,10 @@
 #include "Nageoire.h"
 
-Nageoire::Nageoire( void ){
+Nageoire::Nageoire(){
     speed=0;
 }
-
+Nageoire::~Nageoire(){
+}
 
 float Nageoire::get_speed(){
     return speed;
