@@ -1,39 +1,36 @@
 #include <cstdlib>
 #include <list>
 #include <cmath>
+
 #include "Bestiole.h"
-#include "UImg.h"
 #include "ComportementKamikaze.h"
 
-const T    red[] =      { (T)255,   (T)0,   (T)0 };
-// const T    blue[] =     { (T)0,     (T)0,   (T)255 };
-// const T    green[] =    { (T)0,     (T)255, (T)0 };
-// const T    rose[] =     { (T)255,   (T)193, (T)203 };
-// const T    purple[] =   { (T)128,   (T)0,   (T)128 };
-// const T    orange[] =   { (T)255,   (T)165, (T)0 };
-// const T    white[] =    { (T)255,   (T)255, (T)255 };
-// const T    black[] =    { (T)0,     (T)0,   (T)0 };
+double ComportementKamikaze::calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+    // Check that perceivedBsts is not empty
+    if (!perceivedBsts.size()){
+        return b.getOrientation();
+    }
 
-std::tuple<int, int> ComportementKamikaze::get_orientation(std::list<Bestiole> perceivedBsts){
-    //iterate on bestiole to know the nearest 
-    Bestiole nearest=perceivedBsts[0];
-    for (nbbestiole , nbbestiole <len(perceivedBsts), nbbestiole++){
-        
-        distance=Bestiole.distanceToBst(perceivedBsts[nbbestiole]);
-        if ((perceivedBsts[nbbestiole].x)<min || nbbestiole==0){
-            min=distance
-            nearest= perceivedBsts[nbbestiole];
+    // For all the bestioles in the list, search for the closest one
+    Bestiole* closest = nullptr;
+    double minDist = 1000;
+
+    for (std::list<Bestiole*>::iterator it = perceivedBsts.begin(); it != perceivedBsts.end(); ++it){
+        double distance = b.distanceToBst(**it);
+        if (distance < minDist){
+            minDist = distance;
+            closest = *it;
         }
+    }
 
-    } 
-    return  std::make_tuple(nearest.x, nearest.y);
+    double newOrientation = b.angleToBst(*closest);
+    return newOrientation;
 };
 
-double ComportementKamikaze::get_vitesse(std::list<Bestiole> perceivedBsts){
-    // TODO
-    return 0;
+double ComportementKamikaze::calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts){
+    return b.getVitesse();
 }
 
-void ComportementKamikaze::set_color(){
-    // TODO
+Comportement* ComportementKamikaze::clone() const {
+    return new ComportementKamikaze(*this);
 }

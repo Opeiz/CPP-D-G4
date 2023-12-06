@@ -3,9 +3,14 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 
 #include "UImg.h"
 #include "Bestiole.h"
+#include "Comportement.h"
+
+#define PROB_BIRTH 5  // Probability of a bestiole being born at each timestep
+#define PROB_CHANGE 5   // Prob of changing personality
 
 using namespace std;
 
@@ -15,7 +20,7 @@ class Milieu : public UImg{
       static const T          white[];
 
       int                     width, height;
-      std::list<Bestiole>   listeBestioles;
+      std::list<Bestiole>     listeBestioles;
 
    public :
       Milieu( int _width, int _height );
@@ -27,9 +32,6 @@ class Milieu : public UImg{
       void step( void );
 
       void addMember( const Bestiole & b );
-
-      int nbVoisins( const Bestiole & b );
-
 };
 
 

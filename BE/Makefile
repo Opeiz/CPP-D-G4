@@ -1,14 +1,38 @@
-main : main.cpp Aquarium.o Bestiole.o Milieu.o Nageoire.o Carapace.o Camouflage.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o Nageoire.o Carapace.o Camouflage.o -I . -lX11 -lpthread
+CAPT_DIR = ./capteurs
+COMP_DIR = ./comportements
+INC_DIRS = -I . -I $(CAPT_DIR) -I $(COMP_DIR)
+COpts = -Wall -std=c++11 $(INC_DIRS)
 
-Aquarium.o : Aquarium.h Aquarium.cpp
-	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
 
-Bestiole.o : Bestiole.h Bestiole.cpp
-	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
+main : main.cpp Aquarium.o Bestiole.o Milieu.o Oreilles.o Yeux.o ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o Nageoire.o Carapace.o Camouflage.o
+	g++ $(COpts) -o main $^  -lX11 -lpthread
 
-Milieu.o : Milieu.h Milieu.cpp
-	g++ -Wall -std=c++11  -c Milieu.cpp -I .
+Aquarium.o : Aquarium.h Aquarium.cpp Milieu.o
+	g++ $(COpts) -c Aquarium.cpp
+
+Bestiole.o : Bestiole.h Bestiole.cpp $(CAPT_DIR)/Capteur.h ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o
+	g++ $(COpts) -c Bestiole.cpp
+
+Milieu.o : Milieu.h Milieu.cpp ComportementGregaire.o ComportementKamikaze.o ComportementPeureuse.o
+	g++ $(COpts) -c Milieu.cpp
+
+Yeux.o: $(CAPT_DIR)/Yeux.h $(CAPT_DIR)/Yeux.cpp $(CAPT_DIR)/Capteur.h
+	g++ $(COpts) -c $(CAPT_DIR)/Yeux.cpp
+
+Oreilles.o: $(CAPT_DIR)/Oreilles.h $(CAPT_DIR)/Oreilles.cpp $(CAPT_DIR)/Capteur.h
+	g++ $(COpts) -c $(CAPT_DIR)/Oreilles.cpp
+
+ComportementKamikaze.o : $(COMP_DIR)/ComportementKamikaze.h $(COMP_DIR)/ComportementKamikaze.cpp $(COMP_DIR)/Comportement.h
+	g++ $(COpts) -c $(COMP_DIR)/ComportementKamikaze.cpp
+
+ComportementGregaire.o : $(COMP_DIR)/ComportementGregaire.h $(COMP_DIR)/ComportementGregaire.cpp $(COMP_DIR)/Comportement.h
+	g++ $(COpts) -c $(COMP_DIR)/ComportementGregaire.cpp
+
+ComportementPeureuse.o : $(COMP_DIR)/ComportementPeureuse.h $(COMP_DIR)/ComportementPeureuse.cpp $(COMP_DIR)/Comportement.h
+	g++ $(COpts) -c $(COMP_DIR)/ComportementPeureuse.cpp
+
+ComportementPrevoyante.o : $(COMP_DIR)/ComportementPrevoyante.h $(COMP_DIR)/ComportementPrevoyante.cpp $(COMP_DIR)/Comportement.h
+	g++ $(COpts) -c $(COMP_DIR)/ComportementPrevoyante.cpp
 Nageoire.o : Accessories/Nageoire.h Accessories/Nageoire.cpp
 	g++ -Wall -std=c++11  -c Accessories/Nageoire.cpp -I .
 Carapace.o : Accessories/Carapace.h Accessories/Carapace.cpp
@@ -21,4 +45,3 @@ Camouflage.o : Accessories/Camouflage.h Accessories/Camouflage.cpp
 # 	g++ -Wall -std=c++11  -c Milieu.cpp -I .			
 clean:
 	rm -rf *.o main
-

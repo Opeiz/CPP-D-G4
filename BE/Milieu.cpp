@@ -1,9 +1,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
+#include <set>
+#include <vector>
 #include <cmath>
 
 #include "Milieu.h"
+#include "Comportement.h"
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -26,6 +29,9 @@ Milieu::~Milieu( void ){
 
 void Milieu::step( void ){
 
+   // For debugging
+   // std::cout << "Bestioles alive at the start of the timestep: " << listeBestioles.size() << std::endl;
+   
    // Draw all in the window
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
@@ -65,13 +71,11 @@ void Milieu::step( void ){
 
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
       // Step 3 and 4
-      // TODO
 
       bool itCollided = False;
       for (std::list<Bestiole>::iterator it2 = it; it2 != listeBestioles.end(); ++it2){
          // Iterate over all bestioles to see if distance is too small
          if ((*it != *it2) && (it->distanceToBst(*it2) <= collisionDist)){
-            printf("A collision just happened!\n");
             // Check for death.
             itCollided = True;
 
@@ -87,43 +91,51 @@ void Milieu::step( void ){
    }
 
    // Bestiole Birth
-   int probBirthValue = std::rand() % 100; // Between 0 and 99
-
-   if (probBirthValue > 96){ // probBirthValue will choose a number btw 0 and 99 and if is higher than 96 will create a new bestiole
+   if ((std::rand() % 100) < PROB_BIRTH){
       addMember(Bestiole());
    }
 
    // Iteration over bestioles who have survived this timestep (steps 6 to 10)
    // TODO 
    for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
-      
+
+      // Step 6 - Detection between bestioles
+
+      std::list<Bestiole*> perceivedBsts;
+
+      // Check what each available capteur detects
+      for (std::list<Capteur*>::const_iterator capt_it = (it->listeCapteurs).begin(); capt_it != it->listeCapteurs.end(); ++capt_it){
+         std::list<Bestiole*> captPerceivedBsts = (*capt_it)->detecter(*it, listeBestioles);
+         perceivedBsts.splice(perceivedBsts.end(), captPerceivedBsts, captPerceivedBsts.begin(), captPerceivedBsts.end());
+      }
+
+      // Remove possible duplicates
+      perceivedBsts.sort();
+      perceivedBsts.unique();
+      it->perceivedBsts = perceivedBsts;
+
+      // Step 7 - Changing the comportement of multiple personality bestioles
+
+      if (it->isMultiplePerso){
+         if (std::rand() % 100 < PROB_CHANGE){
+            it->chooseComportement();
+         }
+      }
+
+      // Step 8 - Calculate next orientation and speed
+
+      double newOrientation = it->comportement->calculateOrientation(*it, it->perceivedBsts);
+      it->setOrientation(newOrientation);
+      double newVitesse = it->comportement->calculateVitesse(*it, it->perceivedBsts);
+      it->setVitesse(newVitesse);
+
       // Steps 9 and 10
       it->action( *this );
       it->draw( *this );
    }
 }
 
-
-int Milieu::nbVoisins( const Bestiole & b ){
-
-   int         nb = 0;
-
-   for ( std::list<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == *it) && b.jeTeVois(*it) )
-         ++nb;
-
-   return nb;
-
-}
-
-void Milieu::addMember( const Bestiole & b){
-   int probMulti = std::rand() % 100;
-   
-   if (probMulti > 80){
-      printf("Es esquizofrenico!");
-   }
-
+void Milieu::addMember(const Bestiole &b){
    listeBestioles.push_back(b); 
    listeBestioles.back().initCoords(width, height); 
-
 }

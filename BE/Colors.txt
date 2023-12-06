@@ -1,0 +1,13 @@
+// Just a reminder
+// const T    red[] =      { (T)255,   (T)0,   (T)0 };
+// const T    blue[] =     { (T)0,     (T)0,   (T)255 };
+// const T    green[] =    { (T)0,     (T)255, (T)0 };
+// const T    rose[] =     { (T)255,   (T)193, (T)203 };
+// const T    purple[] =   { (T)128,   (T)0,   (T)128 };
+// const T    orange[] =   { (T)255,   (T)165, (T)0 };
+// const T    white[] =    { (T)255,   (T)255, (T)255 };
+// const T    black[] =    { (T)0,     (T)0,   (T)0 };
+
+// couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+// couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+// couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );

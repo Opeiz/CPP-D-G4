@@ -1,13 +1,19 @@
-#ifndef _COMP_H_
-#define _COMP_H_
-#include "../Bestiole.h"
+#ifndef _COMPORTEMENT_H_
+#define _COMPORTEMENT_H_
+
+#include <list>
+
+#define NUM_COMPS 3
+
+class Bestiole;
+
 class Comportement{
 
-    public : 
-        // Bestiole mybestiole ;                                                   
-        virtual std::tuple<int, int> get_orientation() = 0 ; 
-        virtual double get_vitesse() = 0;
-        virtual void set_color() = 0; // TODO: May need to take parameter to change a bestioles color                                    
+    public:
+        virtual double calculateOrientation(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0 ; 
+        virtual double calculateVitesse(Bestiole &b, std::list<Bestiole*> &perceivedBsts) = 0;
+        virtual ~Comportement(){};
+        virtual Comportement* clone() const =0;
 };
 
 #endif
