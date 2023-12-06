@@ -7,7 +7,6 @@
 class Nageoire: public Accessory{
     private :
         float speed;
-
     public :
         
         Nageoire( void );                               // Constructeur par defaut

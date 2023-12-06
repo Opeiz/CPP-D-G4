@@ -1,5 +1,5 @@
-main : main.cpp Aquarium.o Bestiole.o Milieu.o Nageoire.o Carapace.o  Camouflage.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o  Nageoire.o  Carapace.o Camouflage.o -I . -lX11 -lpthread
+main : main.cpp Aquarium.o Bestiole.o Milieu.o Nageoire.o Carapace.o Camouflage.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o Nageoire.o Carapace.o Camouflage.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
