@@ -29,6 +29,7 @@ class Bestiole{
       int               x, y;
       double            cumulX, cumulY;
       double            orientation;
+      double            collider;
       double            vitesse;
 
       T               * couleur;

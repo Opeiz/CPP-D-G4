@@ -19,8 +19,8 @@
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
-const double      Bestiole::COLLISION_DEATH_RATE = 0.1; // Prob of dying in collision
-
+const double      Bestiole::COLLISION_DEATH_RATE = 0.1; // Prob of dying in collision must be variable because of its use in 
+//double Bestiole::collision=0.1;
 int               Bestiole::next = 0;
 
 Bestiole::Bestiole( void ){
@@ -28,9 +28,10 @@ Bestiole::Bestiole( void ){
 
    // Camouflage camouflage;
    // Carapace carapace;
+   collider=1.0;
    age = 0;
    maxAge = rand() % 500 + 150; // range btw 50-400
-   
+   //COLLISION_DEATH_RATE=0.1;
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
@@ -63,6 +64,7 @@ Bestiole::Bestiole(const Bestiole & b){
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par copie" << endl;
+   collider=b.collider;
    age = b.age;
    maxAge = b.maxAge;
    x = b.x;
@@ -207,7 +209,7 @@ bool Bestiole::diedInCollision(){
 
    // TODO: Consider carapace
 
-   if (((rand() % 1000) / 1000.0) <= COLLISION_DEATH_RATE){
+   if (((rand() % 1000) / 1000.0) <= (COLLISION_DEATH_RATE*(this->collider))){
       // Death
       return True;
    } else {
@@ -221,8 +223,12 @@ bool Bestiole::diedInCollision(){
    
    int choosePerso = std::rand() % 3;
    Nageoire nageoire;
+   nageoire.set_coef(2.0);
    Camouflage camouflage;
+   camouflage.set_coef(0.5);
    Carapace carapace;
+   carapace.set_coef(1.5);
+   carapace.set_speed(0.9);
    switch (choosePerso) {
       case 0:
          this->accessory = &nageoire;
@@ -231,11 +237,13 @@ bool Bestiole::diedInCollision(){
          break;
       case 1:
          this->accessory  = &camouflage;
+         this->camouflage=camouflage.get_coef();
          printf("Camouflage!");
          break;
       case 2:
          this->accessory  = &carapace;
-         this->COLLISION_DEATH_RATE=carapace.get_coef();
+         this->collider=carapace.get_coef();
+         this->vitesse=(this->vitesse)*(carapace.get_speed());
          printf("Carapace!");
          break;
    }
