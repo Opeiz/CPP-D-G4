@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -302,13 +303,19 @@ void Bestiole::draw(UImg& support)
 	support.draw_ellipse(x, y, AFF_SIZE, AFF_SIZE / 5., -orientation / M_PI * 180., couleur);
 	support.draw_circle(xt, yt, AFF_SIZE / 2., couleur);
 
+	string s = to_string(identite);
+	char const* identiteChar = s.c_str();
+	const T white[] = { (T)255, (T)255, (T)255 };
+	support.draw_text(x-6, y + AFF_SIZE, identiteChar, 0, white);
+
+	/* draw capteurs */
 	for (shared_ptr<ICapteur> pCapteur : capteurs) {
 		if (pCapteur->getAlpha() == 2 * M_PI) {
-			/* draw oreilles range */
+			// draw oreilles range
 			support.draw_circle(x, y, pCapteur->getDelta(), couleur, 0.1);
 		}
 		else {
-			/* draw yeux range */
+			// draw yeux range
 			double x2 = x + cos(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
 			double y2 = y - sin(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
 			double x3 = x + cos(orientation - pCapteur->getAlpha() / 2) * pCapteur->getDelta();
