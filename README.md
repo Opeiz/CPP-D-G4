@@ -1,15 +1,9 @@
-# CPP-D-G4
 
-Repository for group 4 of Advanced C++ Programming (UE-D)
+Oreilles detect
+![oreillesdetect](https://github.com/Opeiz/CPP-D-G4/assets/64955334/61f799d5-f48d-420f-89f9-2d70132c00ab)
 
-## Cheat Sheet
+Yeux detect
+![eyedetect](https://github.com/Opeiz/CPP-D-G4/assets/64955334/9b6eecf3-076b-4f52-85f4-cbc180a16bd1)
 
-- Compile:
-    - g++ -c XX.cpp -Wall
-
-- Executable:
-    - g++ -o exe XX.o 
-
-- Execute:
-    - ./exe
+Comportement indicated by different colours
 
