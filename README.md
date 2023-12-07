@@ -6,5 +6,6 @@ Yeux detect
 ![eyedetect](https://github.com/Opeiz/CPP-D-G4/assets/64955334/9b6eecf3-076b-4f52-85f4-cbc180a16bd1)
 
 Comportement indicated by different colours
-![image](https://github.com/Opeiz/CPP-D-G4/assets/64955334/a9c98e43-e7fc-42f3-8d0c-15466ebc2972)
+![image](https://github.com/Opeiz/CPP-D-G4/assets/64955334/8056b77c-9c7a-4f5d-a193-8b9c80fab9d5)
+
 
