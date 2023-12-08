@@ -14,6 +14,7 @@ double ComportementKamikaze::changeOrientation(Bestiole& b, list<Bestiole*>& lis
 		double d = sqrt((b2->getX() - b.getX()) * (b2->getX() - b.getX()) + (b2->getY() - b.getY()) * (b2->getY() - b.getY()));
 		if (d < dMin) {
 			bMin = b2;
+			dMin = d;
 		}
 	}
 
