@@ -342,7 +342,7 @@ void Bestiole::checkCollision(list<Bestiole>& listeBestioles) {
 		// If b is not this, and is alive
 		if (!(*this == b) && b.isAlive) {
 			// If en collision
-			if (abs(x - b.x) <= Config::COLLISION_RANGE && abs(y - b.y) <= Config::COLLISION_RANGE && age - lastCollisionAge > 5) {
+			if (distanceToBst(b) <= Config::COLLISION_RANGE && age - lastCollisionAge > 5) {
 				cout << "collison entre Bestiole(" << identite << ") et Bestiole(" << b.identite << ")" << endl;
 				lastCollisionAge = age;
 				b.lastCollisionAge = b.age;
@@ -433,4 +433,8 @@ void Bestiole::detecterEtAgir(list<Bestiole>& listeBestioles) {
 			lastAgirAge = age;  // avoid getting stuck when repeatedly setting orientation
 		}
 	}
+}
+
+double Bestiole::distanceToBst(const Bestiole &b){
+   return sqrt(pow(this->x - b.x, 2) + pow(this->y - b.y, 2));
 }
