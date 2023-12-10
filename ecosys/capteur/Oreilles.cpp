@@ -21,7 +21,8 @@ ICapteur* Oreilles::doCopy() {
 
 bool Oreilles::isDetected(const Bestiole& b1, const Bestiole& b2) const {
 	bool isdetected = false;
-	double d = sqrt((b2.getX() - b1.getX()) * (b2.getX() - b1.getX()) + (b2.getY() - b1.getY()) * (b2.getY() - b1.getY()));
+	d = b1.distanceToBst(b2);
+	// double d = sqrt((b2.getX() - b1.getX()) * (b2.getX() - b1.getX()) + (b2.getY() - b1.getY()) * (b2.getY() - b1.getY()));
 	double g = static_cast<double>(rand()) / RAND_MAX;
 
 	//if (d <= delta) {
