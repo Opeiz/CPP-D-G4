@@ -87,6 +87,7 @@ public:                                           // Forme canonique :
 	double normalizeRadian(double radian) const;
 	bool getIsPeureuse() const { return isPeureuse; }
 	void setIsPeureuse(const bool res) { isPeureuse = res; }
+	double distanceToBst(const Bestiole &b);
 };
 
 
