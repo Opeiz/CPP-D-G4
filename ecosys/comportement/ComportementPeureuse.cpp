@@ -1,13 +1,13 @@
 #include "ComportementPeureuse.h"
 
 
-double ComportementPeureuse::changeOrientation(Bestiole& b, list<Bestiole*>& listeBestiolesDetected)
+double ComportementPeureuse::changeOrientation(Bestiole& b, list<shared_ptr<Bestiole>>& listeBestiolesDetected)
 {
 	double orientation = b.getOrientation();
 
 	if (listeBestiolesDetected.size() >= Config::N_AUTOUR) {
 		double orientationSum = 0.0;
-		for (Bestiole* b2 : listeBestiolesDetected)
+		for (shared_ptr<Bestiole> b2 : listeBestiolesDetected)
 			orientationSum += b2->getOrientation();
 		orientation = -(orientationSum / listeBestiolesDetected.size());
 	}
@@ -15,7 +15,7 @@ double ComportementPeureuse::changeOrientation(Bestiole& b, list<Bestiole*>& lis
 	return orientation;
 }
 
-double ComportementPeureuse::changeVitesse(Bestiole& b, list<Bestiole*>& listeBestiolesDetected)
+double ComportementPeureuse::changeVitesse(Bestiole& b, list<shared_ptr<Bestiole>>& listeBestiolesDetected)
 {
 	double vitesse = b.getVitesse();
 

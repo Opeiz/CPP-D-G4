@@ -6,13 +6,13 @@
 #include <cmath>
 
 
-double ComportementPrevoyante::changeOrientation(Bestiole& b, list<Bestiole*>& listeBestiolesDetected)
+double ComportementPrevoyante::changeOrientation(Bestiole& b, list<shared_ptr<Bestiole>>& listeBestiolesDetected)
 {
 	double orientation = b.getOrientation();
-	Bestiole* bMin = *listeBestiolesDetected.begin();
+	shared_ptr<Bestiole> bMin = *listeBestiolesDetected.begin();
 	double dMin = sqrt((bMin->getX() - b.getX()) * (bMin->getX() - b.getX()) + (bMin->getY() - b.getY()) * (bMin->getY() - b.getY()));
 
-	for (Bestiole* b2 : listeBestiolesDetected) {
+	for (shared_ptr<Bestiole> b2 : listeBestiolesDetected) {
 		double d = sqrt((b2->getX() - b.getX()) * (b2->getX() - b.getX()) + (b2->getY() - b.getY()) * (b2->getY() - b.getY()));
 		if (d < dMin) {
 			bMin = b2;

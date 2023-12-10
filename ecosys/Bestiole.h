@@ -57,10 +57,10 @@ private:
 	void setComportement();
 	void setCouleur();
 	void aging();
-	void checkCollision(list<Bestiole>& listeBestioles);
+	void checkCollision(list<shared_ptr<Bestiole>>& listeBestioles);
 	void rebondir();
-	void cloner(list<Bestiole>& listeBestioles, int xLim, int yLim);
-	void detecterEtAgir(list<Bestiole>& listeBestioles);
+	void cloner(list<shared_ptr<Bestiole>>& listeBestioles, int xLim, int yLim);
+	void detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles);
 	void bouge(int xLim, int yLim);
 
 public:                                           // Forme canonique :

@@ -337,20 +337,20 @@ void Bestiole::aging() {
 }
 
 
-void Bestiole::checkCollision(list<Bestiole>& listeBestioles) {	
-	for (Bestiole& b : listeBestioles) {
+void Bestiole::checkCollision(list<shared_ptr<Bestiole>>& listeBestioles) {	
+	for (shared_ptr<Bestiole>& b_ptr : listeBestioles) {
 		// If b is not this, and is alive
-		if (!(*this == b) && b.isAlive) {
+		if (!(*this == *b_ptr) && b_ptr->isAlive) {
 			// If en collision
-			if (distanceToBst(b) <= Config::COLLISION_RANGE && age - lastCollisionAge > 5) {
-				cout << "collison entre Bestiole(" << identite << ") et Bestiole(" << b.identite << ")" << endl;
+			if (distanceToBst(*b_ptr) <= Config::COLLISION_RANGE && age - lastCollisionAge > 5) {
+				cout << "collison entre Bestiole(" << identite << ") et Bestiole(" << b_ptr->identite << ")" << endl;
 				lastCollisionAge = age;
-				b.lastCollisionAge = b.age;
+				b_ptr->lastCollisionAge = b_ptr->age;
 
 				double r0 = static_cast<double>(rand()) / RAND_MAX;
 				double r1 = static_cast<double>(rand()) / RAND_MAX;
 				double deathRate0 = Config::COLLISION_DEATH_RATE * getResistanceCoeff();
-				double deathRate1 = Config::COLLISION_DEATH_RATE * b.getResistanceCoeff();
+				double deathRate1 = Config::COLLISION_DEATH_RATE * b_ptr->getResistanceCoeff();
 				// cout << r0 << " " << r1 << endl;
 
 				if (r0 < deathRate0) {
@@ -361,11 +361,11 @@ void Bestiole::checkCollision(list<Bestiole>& listeBestioles) {
 					rebondir();
 
 				if (r1 < deathRate1) {
-					cout << "collison death Bestiole(" << b.identite << ")" << endl;
-					b.isAlive = false;
+					cout << "collison death Bestiole(" << b_ptr->identite << ")" << endl;
+					b_ptr->isAlive = false;
 				}
 				else
-					b.rebondir();
+					b_ptr->rebondir();
 			}
 		}
 	}
@@ -378,7 +378,7 @@ void Bestiole::rebondir() {
 }
 
 
-void Bestiole::cloner(list<Bestiole>& listeBestioles, int xLim, int yLim) {
+void Bestiole::cloner(list<shared_ptr<Bestiole>>& listeBestioles, int xLim, int yLim) {
 	double r = static_cast<double>(rand()) / RAND_MAX;
 	if (r < Config::CLONAGE_RATE && isAlive) {
 		cout << "clonage Bestiole(" << identite << ")" << endl;
@@ -389,20 +389,21 @@ void Bestiole::cloner(list<Bestiole>& listeBestioles, int xLim, int yLim) {
 		b.lastCollisionAge = 0;
 		b.isPeureuse = false;
 		b.lastAgirAge = 0;
-		listeBestioles.push_back(b);
+		shared_ptr<Bestiole> b_ptr(&b);
+		listeBestioles.push_back(b_ptr);
 	}
 }
 
 
-void Bestiole::detecterEtAgir(list<Bestiole>& listeBestioles) {
-	list<Bestiole*> listeBestiolesDetected;
+void Bestiole::detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles) {
+	list<shared_ptr<Bestiole>> listeBestiolesDetected;
 	for (shared_ptr<ICapteur> pCapteur : capteurs) {
-		for (Bestiole& b : listeBestioles) {
-			if (!(*this == b) && b.isAlive) {
-				bool isdetected = pCapteur->isDetected(*this, b);
+		for (shared_ptr<Bestiole>& b_ptr : listeBestioles) {
+			if (!(*this == *b_ptr) && b_ptr->isAlive) {
+				bool isdetected = pCapteur->isDetected(*this, *b_ptr);
 				if (isdetected) {
 					//system("pause");
-					listeBestiolesDetected.push_back(&b);
+					listeBestiolesDetected.push_back(b_ptr);
 				}
 			}
 		}

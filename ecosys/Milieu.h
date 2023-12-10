@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <list>
+#include <memory>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ private:
 	static const T          white[];
 
 	int                     width, height;
-	std::list<Bestiole>   listeBestioles;
+	list<shared_ptr<Bestiole>>   listeBestioles;
 
 public:
 	Milieu(int _width, int _height);
@@ -29,11 +30,12 @@ public:
 	void step(void);
 
 	void addMember() { 
-		listeBestioles.push_back(Bestiole());
-		listeBestioles.back().initCoords(width, height); 
+		shared_ptr<Bestiole> b_ptr(new Bestiole());
+		listeBestioles.push_back(b_ptr);
+		listeBestioles.back()->initCoords(width, height); 
 	}
 
-	list<Bestiole>& getListeBestioles() { return listeBestioles; };
+	list<shared_ptr<Bestiole>>& getListeBestioles() { return listeBestioles; };
 };
 
 

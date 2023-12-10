@@ -30,15 +30,15 @@ void Milieu::step(void)
 {
 	cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
 
-	for (std::list<Bestiole>::iterator it = listeBestioles.begin(); it != listeBestioles.end();)
+	for (std::list<std::shared_ptr<Bestiole>>::iterator it = listeBestioles.begin(); it != listeBestioles.end();)
 	{
-		it->action(*this);
+		(*it)->action(*this);
 
-		if (it->getIsAlive() == false) {
-			it = listeBestioles.erase(it);
+		if ((*it)->getIsAlive() == false) {
+			it = listeBestioles.erase(it); // Check if this does not cause problems with the shared pointer
 		}
 		else {
-			it->draw(*this);
+			(*it)->draw(*this);
 			++it;
 		}
 	}
