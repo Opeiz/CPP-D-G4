@@ -8,6 +8,11 @@ const int Config::MAX_AGE = 10000, Config::MIN_AGE = 500;
 const double Config::COLLISION_RANGE = 8.;
 const double Config::COLLISION_DEATH_RATE = 0.2;
 const double Config::CLONAGE_RATE = 0.0005;
+const double Config::EYES_PROBABILITY = 0.001;  // (0, 1]
+const double Config::EARS_PROBABILITY = 1.0;  // (0, 1]
+const double Config::NAGEOIRE_PROBABILITY = 0.001;  // (0, 1]
+const double Config::CARAPACE_PROBABILITY = 0.001;  // (0, 1]
+const double Config::CAMOUFLAGE_PROBABILITY = 0.001;  // (0, 1]
 
 /* Yeux */
 const double Config::ALPHA_MIN = 0.1 * M_PI, Config::ALPHA_MAX = 0.75 * M_PI;  // [0, 2*pi]

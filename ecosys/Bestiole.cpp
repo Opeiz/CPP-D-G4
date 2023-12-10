@@ -107,27 +107,27 @@ void Bestiole::initCoords(int xLim, int yLim)
 
 
 void Bestiole::setCapteursEtAccessoires() {
-	if (static_cast<double>(rand()) / RAND_MAX < 0.5) {
+	if (static_cast<double>(rand()) / RAND_MAX < Config::EYES_PROBABILITY) {
 		shared_ptr<ICapteur> pCapteur(new Yeux());
 		capteurs.push_back(pCapteur);
 	}
 
-	if (static_cast<double>(rand()) / RAND_MAX < 0.5) {
+	if (static_cast<double>(rand()) / RAND_MAX < Config::EARS_PROBABILITY) {
 		shared_ptr<ICapteur> pCapteur(new Oreilles());
 		capteurs.push_back(pCapteur);
 	}
 
-	if (static_cast<double>(rand()) / RAND_MAX < 0.5) {
+	if (static_cast<double>(rand()) / RAND_MAX < Config::NAGEOIRE_PROBABILITY) {
 		shared_ptr<IAccessoire> pAccessoire(new Nageoire());
 		accessoires.insert(make_pair("Nageoire", pAccessoire));
 	}
 
-	if (static_cast<double>(rand()) / RAND_MAX < 0.5) {
+	if (static_cast<double>(rand()) / RAND_MAX < Config::CARAPACE_PROBABILITY) {
 		shared_ptr<IAccessoire> pAccessoire(new Carapace());
 		accessoires.insert(make_pair("Carapace", pAccessoire));
 	}
 
-	if (static_cast<double>(rand()) / RAND_MAX < 0.5) {
+	if (static_cast<double>(rand()) / RAND_MAX < Config::CAMOUFLAGE_PROBABILITY) {
 		shared_ptr<IAccessoire> pAccessoire(new Camouflage());
 		accessoires.insert(make_pair("Camouflage", pAccessoire));
 	}

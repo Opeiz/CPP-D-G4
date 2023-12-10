@@ -8,6 +8,12 @@ public:
 	static const double COLLISION_RANGE;
 	static const double COLLISION_DEATH_RATE;
 	static const double CLONAGE_RATE;
+	static const double EYES_PROBABILITY;
+	static const double EARS_PROBABILITY;
+	static const double NAGEOIRE_PROBABILITY;
+	static const double CARAPACE_PROBABILITY;
+	static const double CAMOUFLAGE_PROBABILITY;
+
 
 	/* Yeux */
 	static const double ALPHA_MIN, ALPHA_MAX;
