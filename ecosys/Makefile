@@ -2,7 +2,7 @@ INCLUDE_DIRS=-I .
 COPTS=-Wall -std=c++11 $(INCLUDE_DIRS)
 CC=g++
 
-main : main.cpp Aquarium.o Bestiole.o Milieu.o Config.o Oreilles.o Yeux.o Nageoire.o Carapace.o Camouflage.o Accessoires.o ComportementGregaire.o ComportementPeureuse.o ComportementKamikaze.o ComportementPrevoyante.o
+main : main.cpp Aquarium.o Bestiole.o Milieu.o Config.o Oreilles.o Yeux.o Nageoire.o Carapace.o Camouflage.o Accessoires.o Statistics.o ComportementGregaire.o ComportementPeureuse.o ComportementKamikaze.o ComportementPrevoyante.o
 	$(CC) $(COPTS) -o main $^ -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
