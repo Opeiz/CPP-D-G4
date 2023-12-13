@@ -1,13 +1,13 @@
-## Some notes 
+# Some notes 
 
-### Sequence Diagram
+## Sequence Diagram
 
 [Sequence Diagram Site](https://sequencediagram.org)
 
 ![Sequence Diagram](/ecosys/images/Untitled%20(2).png)
 
 
-### UML Diagram
+## UML Diagram
 
 Using PlantUML Extension in VSCode
 
