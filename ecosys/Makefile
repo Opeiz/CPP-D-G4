@@ -35,8 +35,8 @@ Camouflage.o : accessoire/IAccessoire.h accessoire/Camouflage.h accessoire/Camou
 Accessoires.o : accessoire/Accessoires.h accessoire/Accessoires.cpp
 	$(CC) $(COPTS) -c accessoire/Accessoires.cpp
 
-Comportement%.o: comportement/IComportement.h comportement/Comportement%.h comportement/Comportement%.cpp
-	$(CC) $(COPTS) -c $^
+Comportement%.o: comportement/Comportement%.cpp comportement/Comportement%.h comportement/IComportement.h
+	$(CC) $(COPTS) -c $<
 	
 Statistics.o : Statistics.h Statistics.cpp
 	g++ -Wall -std=c++11  -c Statistics.cpp -I .
