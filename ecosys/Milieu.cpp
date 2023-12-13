@@ -30,6 +30,7 @@ void Milieu::step(void)
 {
 	cimg_forXY(*this, x, y) fillC(x, y, 0, white[0], white[1], white[2]);
 
+	// Each bestiole takes their action sequentially
 	for (list<shared_ptr<Bestiole>>::iterator it = listeBestioles.begin(); it != listeBestioles.end();)
 	{
 		(*it)->action(*this);

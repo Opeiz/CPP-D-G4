@@ -29,7 +29,8 @@ public:
 	static const double PSI_MIN, PSI_MAX;
 
 	/* ComportementPeureuse */
-	static const int N_AUTOUR, PEUREUSE_DURATION;
+	static const unsigned int N_AUTOUR;
+	static const int PEUREUSE_DURATION;
 	static const double FUITE_COEFF;
 
 	/* Comportement Multiple */

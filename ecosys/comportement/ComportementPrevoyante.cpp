@@ -21,7 +21,6 @@ double ComportementPrevoyante::changeOrientation(Bestiole& b, set<shared_ptr<Bes
 	}
 
 	double a1 = b.getAngularDistance(*bMin);
-	double a2 = bMin->getAngularDistance(b);
 
 	double orientationMin = min(a1, bMin->getOrientation());
 	double orientationMax = max(a1, bMin->getOrientation());

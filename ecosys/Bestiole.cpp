@@ -144,6 +144,7 @@ void Bestiole::setComportement() {
 
 void Bestiole::setCouleur()
 {
+	// Choose color according to comportement
 	int couleurIdx = comportement->getComportementIdx();
 
 	switch (couleurIdx) {
@@ -183,6 +184,7 @@ bool operator==(const Bestiole& b1, const Bestiole& b2)
 
 
 double Bestiole::normalizeOrientation(double orientationNew) const {
+	// Gets the orientation back in the [0, 2pi) range
 	while (orientationNew < 0) {
 		orientationNew += 2 * M_PI;
 	}
@@ -195,8 +197,8 @@ double Bestiole::normalizeOrientation(double orientationNew) const {
 }
 
 
-double Bestiole::getAngularDistance(const Bestiole& b2) const
-{
+double Bestiole::getAngularDistance(const Bestiole& b2) const {
+	// Get the angle of the segment between this bestiole and b2
 	double angular = acos((b2.x - x) / getDistance(b2));  // acos [0, pi]
 	if (orientation > M_PI) {
 		angular = 2 * M_PI - angular;
@@ -243,8 +245,16 @@ void Bestiole::bouge(int xLim, int yLim)
 }
 
 
-void Bestiole::action(Milieu& monMilieu)
-{
+void Bestiole::action(Milieu& monMilieu) {
+	/*
+	Each bestiole goes through the following steps:
+		1 - Aging and dying if too old
+		2 - Checking for collisions with other bestioles
+		3 - Reproducing with probability Config::CLONAGE_RATE
+		4 - Moving with previous speed
+		5 - Detect other bestioles and set next speed and orientation accordingly
+	*/
+
 	aging();
 	if (isAlive == false) return;
 
@@ -292,6 +302,7 @@ void Bestiole::draw(UImg& support)
 
 
 void Bestiole::aging() {
+	// Increases age and checks for death
 	if (age >= maxAge) {
 		cout << "aged death Bestiole(" << identite << ")" << endl;
 		isAlive = false;
@@ -308,6 +319,7 @@ void Bestiole::checkCollision(list<shared_ptr<Bestiole>>& listeBestioles) {
 			// If en collision
 			if (abs(x - b->x) <= Config::COLLISION_RANGE && abs(y - b->y) <= Config::COLLISION_RANGE && age - lastCollisionAge > 5) {
 				cout << "collison entre Bestiole(" << identite << ") et Bestiole(" << b->identite << ")" << endl;
+				// lastCollisionAge prevents double checking the same collision
 				lastCollisionAge = age;
 				b->lastCollisionAge = b->age;
 
@@ -317,15 +329,16 @@ void Bestiole::checkCollision(list<shared_ptr<Bestiole>>& listeBestioles) {
 				double deathRate1 = Config::COLLISION_DEATH_RATE * b->accessoires.getResistanceCoeff();
 				// cout << r0 << " " << r1 << endl;
 
+				// Check death for both bestioles
 				if (r0 < deathRate0) {
-					cout << "collison death Bestiole(" << identite << ")" << endl;
+					cout << "collision death Bestiole(" << identite << ")" << endl;
 					isAlive = false;
 				}
 				else
 					rebondir();
 
 				if (r1 < deathRate1) {
-					cout << "collison death Bestiole(" << b->identite << ")" << endl;
+					cout << "collision death Bestiole(" << b->identite << ")" << endl;
 					b->isAlive = false;
 				}
 				else
@@ -337,12 +350,13 @@ void Bestiole::checkCollision(list<shared_ptr<Bestiole>>& listeBestioles) {
 
 
 void Bestiole::rebondir() {
-	cout << "rebodir Bestiole(" << identite << ")" << endl;
+	cout << "rebondir Bestiole(" << identite << ")" << endl;
 	orientation = normalizeOrientation(orientation + M_PI);
 }
 
 
 void Bestiole::cloner(list<shared_ptr<Bestiole>>& listeBestioles, int xLim, int yLim) {
+	// Clones bestiole with probability Config::CLONAGE_RATE
 	double r = static_cast<double>(rand()) / RAND_MAX;
 	if (r < Config::CLONAGE_RATE && isAlive) {
 		cout << "clonage Bestiole(" << identite << ")" << endl;
@@ -359,6 +373,12 @@ void Bestiole::cloner(list<shared_ptr<Bestiole>>& listeBestioles, int xLim, int 
 
 
 void Bestiole::detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles) {
+	/*
+	Checks detection of other bestioles and then sets orientation and speed accordingly.
+	For multiple personality bestioles it also reassigns its comportement with probability
+	Config::COMPORTEMTNT_CHANGE_RATE
+	*/
+
 	set<shared_ptr<Bestiole>> bestiolesDetected;
 	for (shared_ptr<ICapteur> pCapteur : capteurs) {
 		for (shared_ptr<Bestiole>& b : listeBestioles) {
@@ -376,11 +396,13 @@ void Bestiole::detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles) {
 	if (isMultiple == true) {
 		double r = static_cast<double>(rand()) / RAND_MAX;
 		if (r < Config::COMPORTEMTNT_CHANGE_RATE) {
+			// TODO: reduce speed if it's currently a peureuse bestiole that's scared
 			cout << "changed comportement Bestiole(" << identite << ")" << endl;
 			setComportement();
 		}
 	}
 
+	// Check for the end of the scared state of peureuse bestioles
 	if ((isPeureuse == true && age - lastAgirAge >= Config::PEUREUSE_DURATION) || isSetComportement) {
 		cout << "end peureuse Bestiole(" << identite << ")" << endl;
 		vitesse /= Config::FUITE_COEFF;
