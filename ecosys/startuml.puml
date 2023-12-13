@@ -1,0 +1,46 @@
+@startuml GPP-D
+
+
+class Camouflage {
+  +Camouflage()
+  +Camouflage(const Camouflage& camouflage)
+  +IAccessoire* clone()
+}
+Camouflage --|> IAccessoire
+
+class Carapace {
+  +Carapace()
+  +Carapace(const Carapace& carapace)
+  +IAccessoire* clone()
+}
+Carapace --|> IAccessoire
+
+class Nageoire {
+  +Nageoire()
+  +Nageoire(const Nageoire& nageoire)
+  +IAccessoire* clone()
+}
+Nageoire --|> IAccessoire
+
+class Accessoires {
+  -list<shared_ptr<IAccessoire>> accessoiresList
+  +Accessoires()
+  +Accessoires(const Accessoires& accessoires)
+  +double getVitesseCoeff() const
+  +double getResistanceCoeff() const
+  +double getCamouflageCoeff() const
+  +string getAccessoiresInfo() const
+}
+
+interface IAccessoire {
+  +virtual IAccessoire* clone() = 0
+  +string getInfo() const
+  +double getViteCoeff() const
+  +double getLentCoeff() const
+  +double getResistanceCoeff() const
+  +double getCamouflageCoeff() const
+}
+
+IAccessoire --> Accessoires
+
+@enduml
