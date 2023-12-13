@@ -19,6 +19,8 @@ private:
 	int                     width, height;
 	list<shared_ptr<Bestiole>>   listeBestioles;
 
+	int nStep;
+
 public:
 	Milieu(int _width, int _height);
 	~Milieu(void);
@@ -35,6 +37,7 @@ public:
 	}
 
 	list<shared_ptr<Bestiole>>& getListeBestioles() { return listeBestioles; };
+	int getNStep() const { return nStep; }
 };
 
 

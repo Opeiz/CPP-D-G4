@@ -37,7 +37,10 @@ Accessoires.o : accessoire/Accessoires.h accessoire/Accessoires.cpp
 
 Comportement%.o: comportement/IComportement.h comportement/Comportement%.h comportement/Comportement%.cpp
 	$(CC) $(COPTS) -c $^
-
+	
+Statistics.o : Statistics.h Statistics.cpp
+	g++ -Wall -std=c++11  -c Statistics.cpp -I .
+	
 clean:
 	rm -rf *.o main
 

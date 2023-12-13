@@ -31,8 +31,7 @@ const double Config::OMEGA_MIN = 1.0, Config::OMEGA_MAX = 10.0;  // [1, )
 const double Config::PSI_MIN = 0.1, Config::PSI_MAX = 1.0;  // (0, 1]
 
 /* ComportementPeureuse */
-const unsigned int Config::N_AUTOUR = 1;
-const int Config::PEUREUSE_DURATION = 50;
+const int Config::N_AUTOUR = 1, Config::PEUREUSE_DURATION = 50;
 const double Config::FUITE_COEFF = 8.0;
 
 /* Comportement Multiple */

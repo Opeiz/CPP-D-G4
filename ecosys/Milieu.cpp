@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include "Statistics.h"
 
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
@@ -10,7 +11,7 @@ const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 Milieu::Milieu(int _width, int _height) : UImg(_width, _height, 1, 3),
 width(_width), height(_height)
 {
-
+	nStep = 0;
 	cout << "const Milieu" << endl;
 
 	std::srand(time(NULL));
@@ -43,5 +44,8 @@ void Milieu::step(void)
 			++it;
 		}
 	}
+
+	Statistics::doStatistics(*this);
+	nStep++;
 }
 

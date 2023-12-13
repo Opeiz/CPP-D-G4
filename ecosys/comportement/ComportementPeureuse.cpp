@@ -5,7 +5,7 @@ double ComportementPeureuse::changeOrientation(Bestiole& b, set<shared_ptr<Besti
 {
 	double orientation = b.getOrientation();
 
-	if (bestiolesDetected.size() >= Config::N_AUTOUR) {
+	if (bestiolesDetected.size() >= static_cast<size_t>(Config::N_AUTOUR)) {
 		double orientationSum = 0.0;
 		for (const shared_ptr<Bestiole>& b2 : bestiolesDetected)
 			orientationSum += b2->getOrientation();
@@ -20,7 +20,7 @@ double ComportementPeureuse::changeVitesse(Bestiole& b, set<shared_ptr<Bestiole>
 {
 	double vitesse = b.getVitesse();
 
-	if (bestiolesDetected.size() >= Config::N_AUTOUR && b.getIsPeureuse() == false) {
+	if (bestiolesDetected.size() >= static_cast<size_t>(Config::N_AUTOUR) && b.getIsPeureuse() == false) {
 		cout << "peureuse Bestiole(" << b.getIdentite() << ")" << endl;
 		b.setIsPeureuse(true);
 		vitesse *= Config::FUITE_COEFF;

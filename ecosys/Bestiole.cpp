@@ -13,14 +13,13 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
-#include <string>
+
 
 
 using namespace std;
 
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
-
 int               Bestiole::next = 0;
 
 
@@ -96,6 +95,12 @@ Bestiole::~Bestiole(void)
 	delete[] couleur;
 	
 	cout << "dest Bestiole" << this << endl;
+}
+
+
+bool operator==(const Bestiole& b1, const Bestiole& b2)
+{
+	return (b1.identite == b2.identite);
 }
 
 
@@ -177,12 +182,6 @@ void Bestiole::setCouleur()
 }
 
 
-bool operator==(const Bestiole& b1, const Bestiole& b2)
-{
-	return (b1.identite == b2.identite);
-}
-
-
 double Bestiole::normalizeOrientation(double orientationNew) const {
 	// Gets the orientation back in the [0, 2pi) range
 	while (orientationNew < 0) {
@@ -196,6 +195,40 @@ double Bestiole::normalizeOrientation(double orientationNew) const {
 	return orientationNew;
 }
 
+int Bestiole::getComportementInfo() const
+{
+	int comportementInfo = 0;
+	if (isMultiple)
+		comportementInfo = 5;
+	else
+		comportementInfo = comportement->getComportementIdx();
+
+	return comportementInfo;
+}
+
+list<int> Bestiole::getCapteurInfo() const
+{
+	list<int> capteurInfo;
+
+	if (capteurs.size() == 0) {
+		capteurInfo.push_back(0);
+	}
+	else {
+		for (shared_ptr<ICapteur> pCapteur : capteurs) {
+			if (pCapteur->getAlpha() == 2 * M_PI)
+				capteurInfo.push_back(1);  // Oreilles
+			else
+				capteurInfo.push_back(2);  // Yeux
+		}
+	}
+	return capteurInfo;
+}
+
+string Bestiole::getAccessoiresInfo() const
+{
+	return accessoires.getAccessoiresInfo();
+}
+
 
 double Bestiole::getAngularDistance(const Bestiole& b2) const {
 	// Get the angle of the segment between this bestiole and b2
@@ -204,44 +237,6 @@ double Bestiole::getAngularDistance(const Bestiole& b2) const {
 		angular = 2 * M_PI - angular;
 	}
 	return angular;
-}
-
-
-void Bestiole::bouge(int xLim, int yLim)
-{	
-	double vitesseWithCoeff = vitesse * accessoires.getVitesseCoeff();
-	if (vitesseWithCoeff > MAX_VITESSE) vitesseWithCoeff = MAX_VITESSE;
-
-	double         nx, ny;
-	double         dx = cos(orientation) * vitesseWithCoeff;
-	double         dy = -sin(orientation) * vitesseWithCoeff;
-	int            cx, cy;
-
-	cx = static_cast<int>(cumulX); cumulX -= cx;
-	cy = static_cast<int>(cumulY); cumulY -= cy;
-
-	nx = x + dx + cx;
-	ny = y + dy + cy;
-
-	// if x reached the bound
-	if ((nx < 0) || (nx > xLim - 1)) {
-		orientation = normalizeOrientation(M_PI - orientation);
-		cumulX = 0.;
-	}
-	else {
-		x = static_cast<int>(nx);
-		cumulX += nx - x;
-	}
-
-	// if y reached the bound
-	if ((ny < 0) || (ny > yLim - 1)) {
-		orientation = normalizeOrientation(-orientation);
-		cumulY = 0.;
-	}
-	else {
-		y = static_cast<int>(ny);
-		cumulY += ny - y;
-	}
 }
 
 
@@ -264,40 +259,6 @@ void Bestiole::action(Milieu& monMilieu) {
 	cloner(monMilieu.getListeBestioles(), monMilieu.getWidth(), monMilieu.getHeight());
 	bouge(monMilieu.getWidth(), monMilieu.getHeight());
 	detecterEtAgir(monMilieu.getListeBestioles());
-
-}
-
-
-void Bestiole::draw(UImg& support)
-{
-	double         xt = x + cos(orientation) * AFF_SIZE / 2.1;
-	double         yt = y - sin(orientation) * AFF_SIZE / 2.1;
-	support.draw_ellipse(x, y, AFF_SIZE, AFF_SIZE / 5., -orientation / M_PI * 180., couleur);
-	support.draw_circle(xt, yt, AFF_SIZE / 2., couleur);
-
-	string s = to_string(identite);
-	if (isMultiple) s += " (m)";
-	s += " " + accessoires.getAccessoiresInfo();
-	char const* identiteChar = s.c_str();
-	const T white[] = { (T)255, (T)255, (T)255 };
-	support.draw_text(x-6, y + AFF_SIZE, identiteChar, 0, white);
-
-	/* draw capteurs */
-	for (shared_ptr<ICapteur> pCapteur : capteurs) {
-		if (pCapteur->getAlpha() == 2 * M_PI) {
-			// draw oreilles range
-			support.draw_circle(x, y, pCapteur->getDelta(), couleur, 0.1);
-		}
-		else {
-			// draw yeux range
-			double x2 = x + cos(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
-			double y2 = y - sin(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
-			double x3 = x + cos(orientation - pCapteur->getAlpha() / 2) * pCapteur->getDelta();
-			double y3 = y - sin(orientation - pCapteur->getAlpha() / 2) * pCapteur->getDelta();
-			support.draw_line(x, y, x2, y2, couleur, 0.2);
-			support.draw_line(x, y, x3, y3, couleur, 0.2);
-		}
-	}
 }
 
 
@@ -372,6 +333,44 @@ void Bestiole::cloner(list<shared_ptr<Bestiole>>& listeBestioles, int xLim, int 
 }
 
 
+void Bestiole::bouge(int xLim, int yLim)
+{
+	double vitesseWithCoeff = vitesse * accessoires.getVitesseCoeff();
+	if (vitesseWithCoeff > MAX_VITESSE) vitesseWithCoeff = MAX_VITESSE;
+
+	double         nx, ny;
+	double         dx = cos(orientation) * vitesseWithCoeff;
+	double         dy = -sin(orientation) * vitesseWithCoeff;
+	int            cx, cy;
+
+	cx = static_cast<int>(cumulX); cumulX -= cx;
+	cy = static_cast<int>(cumulY); cumulY -= cy;
+
+	nx = x + dx + cx;
+	ny = y + dy + cy;
+
+	// if x reached the bound
+	if ((nx < 0) || (nx > xLim - 1)) {
+		orientation = normalizeOrientation(M_PI - orientation);
+		cumulX = 0.;
+	}
+	else {
+		x = static_cast<int>(nx);
+		cumulX += nx - x;
+	}
+
+	// if y reached the bound
+	if ((ny < 0) || (ny > yLim - 1)) {
+		orientation = normalizeOrientation(-orientation);
+		cumulY = 0.;
+	}
+	else {
+		y = static_cast<int>(ny);
+		cumulY += ny - y;
+	}
+}
+
+
 void Bestiole::detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles) {
 	/*
 	Checks detection of other bestioles and then sets orientation and speed accordingly.
@@ -417,6 +416,39 @@ void Bestiole::detecterEtAgir(list<shared_ptr<Bestiole>>& listeBestioles) {
 			orientation = orientationNew;
 			vitesse = vitesseNew;
 			lastAgirAge = age;  // avoid getting stuck when repeatedly setting orientation
+		}
+	}
+}
+
+
+void Bestiole::draw(UImg& support)
+{
+	double         xt = x + cos(orientation) * AFF_SIZE / 2.1;
+	double         yt = y - sin(orientation) * AFF_SIZE / 2.1;
+	support.draw_ellipse(x, y, AFF_SIZE, AFF_SIZE / 5., -orientation / M_PI * 180., couleur);
+	support.draw_circle(xt, yt, AFF_SIZE / 2., couleur);
+
+	string s = to_string(identite);
+	if (isMultiple) s += " (m)";
+	s += " " + accessoires.getAccessoiresInfo();
+	char const* identiteChar = s.c_str();
+	const T white[] = { (T)255, (T)255, (T)255 };
+	support.draw_text(x - 6, y + AFF_SIZE, identiteChar, 0, white);
+
+	/* draw capteurs */
+	for (shared_ptr<ICapteur> pCapteur : capteurs) {
+		if (pCapteur->getAlpha() == 2 * M_PI) {
+			// draw oreilles range
+			support.draw_circle(x, y, pCapteur->getDelta(), couleur, 0.1);
+		}
+		else {
+			// draw yeux range
+			double x2 = x + cos(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
+			double y2 = y - sin(orientation + pCapteur->getAlpha() / 2) * pCapteur->getDelta();
+			double x3 = x + cos(orientation - pCapteur->getAlpha() / 2) * pCapteur->getDelta();
+			double y3 = y - sin(orientation - pCapteur->getAlpha() / 2) * pCapteur->getDelta();
+			support.draw_line(x, y, x2, y2, couleur, 0.2);
+			support.draw_line(x, y, x3, y3, couleur, 0.2);
 		}
 	}
 }

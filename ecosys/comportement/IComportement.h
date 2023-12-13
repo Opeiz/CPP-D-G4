@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ICOMPORT_H
+#define ICOMPORT_H
 
 #include "../Bestiole.h"
 
@@ -14,3 +15,6 @@ public:
 	virtual double changeVitesse(Bestiole& b, set<shared_ptr<Bestiole>>& bestiolesDetected) = 0;
 	int getComportementIdx() const { return couleurIdx; }
 };
+
+
+#endif // ICOMPORT_H

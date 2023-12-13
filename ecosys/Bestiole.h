@@ -10,6 +10,7 @@
 #include <list>
 #include <map>
 #include <set>
+#include <string>
 
 using namespace std;
 
@@ -77,6 +78,10 @@ public:                                           // Forme canonique :
 	bool getIsPeureuse() const { return isPeureuse; }
 	void setIsPeureuse(const bool res) { isPeureuse = res; }
 	double getCamouflageCoeff() const { return accessoires.getCamouflageCoeff(); }
+
+	int getComportementInfo() const;
+	list<int> getCapteurInfo() const;
+	string getAccessoiresInfo() const;
 };
 
 
